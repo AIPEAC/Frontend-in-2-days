@@ -1,0 +1,1640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frontend in 2 Days</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<!-- ====== TOP NAV BAR ====== -->
+<nav class="topbar">
+    <div class="topbar-brand">Frontend in 2 Days</div>
+    <div class="topbar-tabs">
+        <button class="tab-btn active" data-page="0">1 &middot; HTML</button>
+        <button class="tab-btn" data-page="1">2 &middot; JavaScript</button>
+        <button class="tab-btn" data-page="2">3 &middot; JS &times; HTML</button>
+        <button class="tab-btn" data-page="3">4 &middot; CSS</button>
+    </div>
+</nav>
+
+<!-- ================================================================ -->
+<!-- PAGE 0 — HTML                                                     -->
+<!-- ================================================================ -->
+<section class="page active" id="page-0">
+
+    <!-- HERO -->
+    <div class="hero">
+        <h1>HTML &mdash; The Skeleton</h1>
+        <p class="hero-sub">Every webpage is built from a single <code>.html</code> file. HTML isn&rsquo;t a programming language &mdash; it&rsquo;s a <em>markup</em> language that tells the browser <strong>what</strong> to display.</p>
+    </div>
+
+    <!-- ---- Section: Document Structure ---- -->
+    <div class="section-title"><span class="section-num">01</span> The Document Structure</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="marker" data-note="n1">&lt;!DOCTYPE html&gt;</span>
+<span class="marker" data-note="n2">&lt;html lang="en"&gt;</span>
+
+  <span class="marker" data-note="n3">&lt;head&gt;</span>
+    <span class="marker" data-note="n4">&lt;meta charset="UTF-8"&gt;</span>
+    <span class="marker" data-note="n5">&lt;meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0"&gt;</span>
+    <span class="marker" data-note="n6">&lt;title&gt;My Page&lt;/title&gt;</span>
+    <span class="marker" data-note="n7">&lt;link rel="stylesheet"
+          href="styles.css"&gt;</span>
+  <span class="marker" data-note="n3b">&lt;/head&gt;</span>
+
+  <span class="marker" data-note="n8">&lt;body&gt;</span>
+    &lt;h1&gt;Hello&lt;/h1&gt;
+    <span class="marker" data-note="n9">&lt;script src="app.js"&gt;&lt;/script&gt;</span>
+  <span class="marker" data-note="n8b">&lt;/body&gt;</span>
+
+<span class="marker" data-note="n2b">&lt;/html&gt;</span></code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="n1">
+                <span class="note-badge">1</span>
+                <strong>&lt;!DOCTYPE html&gt;</strong> &mdash; A <em>declaration</em>, not a tag. Tells the browser: &ldquo;I&rsquo;m HTML5, render me in Standards Mode.&rdquo; Without it, browsers fall back to &ldquo;Quirks Mode&rdquo; (1990s rendering). Always line&nbsp;1.
+            </div>
+            <div class="note" data-note="n2">
+                <span class="note-badge">2</span>
+                <strong>&lt;html&gt;</strong> &mdash; The <em>root element</em>. Every file has exactly <strong>one</strong>. The <code>lang</code> attribute helps search engines and screen readers.
+            </div>
+            <div class="note" data-note="n3">
+                <span class="note-badge">3</span>
+                <strong>&lt;head&gt;</strong> &mdash; The &ldquo;brain.&rdquo; Nothing here is visible on the page. It holds metadata, styles, scripts, and external links. Exactly <strong>one</strong> per document.
+            </div>
+            <div class="note" data-note="n4">
+                <span class="note-badge">4</span>
+                <strong>&lt;meta charset&gt;</strong> &mdash; Sets the character encoding. <code>UTF-8</code> supports all languages (CJK, emoji, accents). Without it, non-ASCII text may appear garbled.
+            </div>
+            <div class="note" data-note="n5">
+                <span class="note-badge">5</span>
+                <strong>viewport meta</strong> &mdash; Tells mobile browsers &ldquo;page width = device width, don&rsquo;t zoom out.&rdquo; Without it, phones render a tiny desktop page.
+            </div>
+            <div class="note" data-note="n6">
+                <span class="note-badge">6</span>
+                <strong>&lt;title&gt;</strong> &mdash; The text on the browser tab. <em>Required.</em> Also used by search engines as the clickable headline.
+            </div>
+            <div class="note" data-note="n7">
+                <span class="note-badge">7</span>
+                <strong>&lt;link&gt;</strong> &mdash; Connects external resources. <code>rel="stylesheet"</code> loads CSS. Also used for favicons: <code>&lt;link rel="icon" href="favicon.ico"&gt;</code>. It&rsquo;s a void element (no closing tag). Loads <strong>in parallel</strong> &mdash; unlike <code>@import</code> in CSS which loads sequentially.
+            </div>
+            <div class="note" data-note="n8">
+                <span class="note-badge">8</span>
+                <strong>&lt;body&gt;</strong> &mdash; The &ldquo;body.&rdquo; Everything the user <em>sees</em> goes here: text, images, buttons, canvas. Exactly <strong>one</strong> per document.
+            </div>
+            <div class="note" data-note="n9">
+                <span class="note-badge">9</span>
+                <strong>&lt;script&gt;</strong> &mdash; Loads JavaScript. Placed at the bottom of &lt;body&gt; so the browser renders HTML first, then runs JS. If placed in &lt;head&gt;, use the <code>defer</code> attribute. <code>async</code> downloads in parallel but executes immediately &mdash; order is not guaranteed.
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>The Rule of One:</strong> One <code>&lt;html&gt;</code>, one <code>&lt;head&gt;</code>, one <code>&lt;body&gt;</code>. If you accidentally write two, the browser will merge them silently &mdash; but styles and scripts may break.
+    </div>
+
+    <!-- ---- Section: Common Body Elements ---- -->
+    <div class="section-title"><span class="section-num">02</span> Common Body Elements</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Text &amp; Headings</h3>
+<pre><code>&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Sub-heading&lt;/h2&gt;
+&lt;!-- h1 to h6, one h1 per page --&gt;
+
+&lt;p&gt;A paragraph of text.&lt;/p&gt;
+
+&lt;p&gt;Line one&lt;br&gt;Line two&lt;/p&gt;
+&lt;!-- &lt;br&gt; forces a line break.
+     HTML5 style: &lt;br&gt;
+     XHTML style: &lt;br /&gt;
+     Both work, pick one, stay consistent --&gt;
+
+&lt;strong&gt;Bold&lt;/strong&gt;
+&lt;em&gt;Italic&lt;/em&gt;
+&lt;span&gt;Inline wrapper&lt;/span&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Links &amp; Images</h3>
+<pre><code>&lt;!-- Hyperlink --&gt;
+&lt;a href="https://example.com"
+   target="_blank"&gt;Click me&lt;/a&gt;
+
+&lt;!-- Image (void element, no closing tag) --&gt;
+&lt;img src="photo.jpg"
+     alt="A cat sleeping"
+     width="300"&gt;
+
+&lt;!-- alt: text shown if image fails
+         to load; also read by screen
+         readers for accessibility --&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Lists</h3>
+<pre><code>&lt;!-- Unordered (bullet points) --&gt;
+&lt;ul&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Bananas&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- Ordered (numbered) --&gt;
+&lt;ol&gt;
+  &lt;li&gt;First step&lt;/li&gt;
+  &lt;li&gt;Second step&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Forms &amp; Inputs</h3>
+<pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name"
+         placeholder="Enter name"&gt;
+
+  &lt;input type="email"
+         placeholder="you@mail.com"&gt;
+
+  &lt;textarea rows="4"&gt;&lt;/textarea&gt;
+
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;
+
+&lt;!-- input is a void element --&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Tables</h3>
+<pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;
+      &lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;
+      &lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>&lt;div&gt; vs Semantic Tags</h3>
+<pre><code>&lt;!-- div: generic container. No
+     default style. Use it for
+     grouping, layout, JS hooks --&gt;
+&lt;div class="card"&gt;...&lt;/div&gt;
+
+&lt;!-- Semantic: same as div but
+     meaningful to SEO &amp; screen
+     readers --&gt;
+&lt;header&gt;Site banner&lt;/header&gt;
+&lt;nav&gt;Navigation links&lt;/nav&gt;
+&lt;main&gt;Primary content&lt;/main&gt;
+&lt;section&gt;Grouped content&lt;/section&gt;
+&lt;article&gt;Self-contained post&lt;/article&gt;
+&lt;footer&gt;Copyright info&lt;/footer&gt;</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Section: Special Elements ---- -->
+    <div class="section-title"><span class="section-num">03</span> Special Elements</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>&lt;canvas&gt; &mdash; The Blank Paper</h3>
+<pre><code>&lt;canvas id="sky" width="400"
+        height="300"&gt;
+  Fallback text if unsupported
+&lt;/canvas&gt;
+
+&lt;!-- Canvas itself displays nothing.
+     JavaScript draws on it pixel
+     by pixel via the 2D/WebGL API.
+
+     Think of it as Python's Turtle:
+     moveTo, lineTo, fillRect...
+     but running at 60fps in
+     the browser.
+
+     Libraries: PixiJS (2D),
+     Three.js (3D/WebGL),
+     Chart.js (charts). --&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>&lt;ruby&gt; &mdash; Text Annotations</h3>
+<pre><code>&lt;!-- NOT the Ruby language!
+     Named after a small font size
+     used in East Asian printing. --&gt;
+
+&lt;ruby&gt;
+  漢 &lt;rt&gt;hàn&lt;/rt&gt;
+  語 &lt;rt&gt;yǔ&lt;/rt&gt;
+&lt;/ruby&gt;
+
+&lt;!-- Renders:
+     hàn  yǔ
+     漢   語
+
+     Creative uses:
+     &lt;ruby&gt;I'm fine
+       &lt;rt&gt;I'm not&lt;/rt&gt;
+     &lt;/ruby&gt; --&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Void (Self-closing) Elements</h3>
+<pre><code>&lt;!-- These tags have NO content
+     and NO closing tag: --&gt;
+
+&lt;br&gt;        &lt;!-- line break --&gt;
+&lt;hr&gt;        &lt;!-- horizontal rule --&gt;
+&lt;img&gt;       &lt;!-- image --&gt;
+&lt;input&gt;     &lt;!-- form input --&gt;
+&lt;meta&gt;      &lt;!-- metadata --&gt;
+&lt;link&gt;      &lt;!-- external resource --&gt;
+
+&lt;!-- HTML5: &lt;br&gt;  (recommended)
+     XHTML:  &lt;br /&gt; (required)
+     React/JSX: &lt;br /&gt; (required)
+
+     NEVER: &lt;div /&gt; — this will
+     swallow everything after it --&gt;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>PWA Manifest</h3>
+<pre><code>&lt;!-- In &lt;head&gt;, link a JSON file
+     that turns your site into an
+     installable "app": --&gt;
+
+&lt;link rel="manifest"
+      href="manifest.json"&gt;
+
+&lt;!-- manifest.json: --&gt;
+{
+  "name": "My App",
+  "short_name": "App",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [{ "src": "icon.png",
+              "sizes": "192x192" }]
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>HTML Comments:</strong> <code>&lt;!-- anything here --&gt;</code> &mdash; invisible to users, visible in source code. Use for notes and temporarily disabling code.
+    </div>
+
+    <div class="info-box">
+        <strong>Attributes:</strong> Tags carry data via attributes: <code>id</code> (unique identifier), <code>class</code> (reusable styling hook), <code>src</code> (resource URL), <code>href</code> (link destination), <code>style</code> (inline CSS). IDs must be unique across the page; classes can repeat.
+    </div>
+
+    <div class="nav-bottom">
+        <span></span>
+        <button class="nav-btn next-btn" data-target="1">Next: JavaScript &rarr;</button>
+    </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PAGE 1 — JAVASCRIPT                                               -->
+<!-- ================================================================ -->
+<section class="page" id="page-1">
+    <div class="hero">
+        <h1>JavaScript &mdash; The Soul</h1>
+        <p class="hero-sub">JS makes pages <em>interactive</em>. It runs in the browser (or on servers via Node.js). If you know Dart, most syntax will feel familiar &mdash; JS is also C-family, dynamically typed, and supports async/await.</p>
+    </div>
+
+    <!-- ---- Variables & Types ---- -->
+    <div class="section-title"><span class="section-num">01</span> Variables &amp; Types</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="kw">// Three ways to declare variables</span>
+<span class="marker" data-note="v1"><span class="kw">let</span> count = 0;</span>        <span class="cmt">// mutable, block-scoped</span>
+<span class="marker" data-note="v2"><span class="kw">const</span> PI = 3.14159;</span>  <span class="cmt">// immutable binding</span>
+<span class="marker" data-note="v3"><span class="kw">var</span> legacy = true;</span>   <span class="cmt">// function-scoped (avoid)</span>
+
+<span class="kw">// Primitive types</span>
+<span class="kw">let</span> str   = <span class="str">"hello"</span>;         <span class="cmt">// String</span>
+<span class="kw">let</span> num   = 42;              <span class="cmt">// Number (int+float)</span>
+<span class="kw">let</span> big   = 9007199254740993<span class="kw">n</span>; <span class="cmt">// BigInt</span>
+<span class="kw">let</span> flag  = <span class="kw">true</span>;            <span class="cmt">// Boolean</span>
+<span class="kw">let</span> empty = <span class="kw">null</span>;            <span class="cmt">// intentional nothing</span>
+<span class="kw">let</span> nope;                    <span class="cmt">// undefined</span>
+<span class="kw">let</span> id    = <span class="fn">Symbol</span>(<span class="str">"id"</span>);   <span class="cmt">// unique token</span>
+
+<span class="kw">// Reference types</span>
+<span class="kw">let</span> arr = [1, 2, 3];
+<span class="kw">let</span> obj = { name: <span class="str">"Alice"</span>, age: 30 };</code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="v1">
+                <span class="note-badge">let</span>
+                Block-scoped (<code>{}</code>). Use this for any variable that changes. Like Dart&rsquo;s <code>var</code>.
+            </div>
+            <div class="note" data-note="v2">
+                <span class="note-badge">const</span>
+                The <em>binding</em> can&rsquo;t be reassigned. But if it&rsquo;s an object/array, properties inside <em>can</em> still change. Like Dart&rsquo;s <code>final</code>.
+            </div>
+            <div class="note" data-note="v3">
+                <span class="note-badge">var</span>
+                Function-scoped, gets &ldquo;hoisted&rdquo; to the top. Legacy &mdash; avoid in modern code. Doesn&rsquo;t exist in Dart.
+            </div>
+        </div>
+    </div>
+
+    <div class="info-box warn">
+        <strong>JS Gotcha &mdash; <code>==</code> vs <code>===</code></strong><br>
+        <code>"5" == 5</code> is <code>true</code> (type coercion). <code>"5" === 5</code> is <code>false</code> (strict). <strong>Always use <code>===</code></strong> unless you specifically need coercion. Dart only has <code>==</code> (no coercion).
+    </div>
+
+    <!-- ---- Functions ---- -->
+    <div class="section-title"><span class="section-num">02</span> Functions</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Regular Functions</h3>
+<pre><code><span class="cmt">// Declaration (hoisted)</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+}
+
+<span class="cmt">// Expression (not hoisted)</span>
+<span class="kw">const</span> <span class="fn">greet2</span> = <span class="kw">function</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hi, ${name}!`</span>;
+};
+
+<span class="cmt">// Default parameters</span>
+<span class="kw">function</span> <span class="fn">power</span>(base, exp = 2) {
+  <span class="kw">return</span> base ** exp;
+}
+<span class="fn">power</span>(3);    <span class="cmt">// 9</span>
+<span class="fn">power</span>(3, 3); <span class="cmt">// 27</span></code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Arrow Functions (=&gt;)</h3>
+<pre><code><span class="cmt">// Like Dart's (x) => x * 2</span>
+<span class="kw">const</span> <span class="fn">double</span> = (x) => x * 2;
+
+<span class="cmt">// With body block</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) => {
+  <span class="kw">const</span> sum = a + b;
+  <span class="kw">return</span> sum;
+};
+
+<span class="cmt">// Single param: parens optional</span>
+<span class="kw">const</span> <span class="fn">square</span> = x => x * x;
+
+<span class="cmt">// No params: empty parens</span>
+<span class="kw">const</span> <span class="fn">now</span> = () => Date.now();
+
+<span class="cmt">// Key difference from Dart:
+// Arrow functions do NOT have
+// their own `this` context.</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Modern Syntax ---- -->
+    <div class="section-title"><span class="section-num">03</span> ES6+ Modern Syntax</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Template Literals</h3>
+<pre><code><span class="kw">const</span> name = <span class="str">"World"</span>;
+
+<span class="cmt">// Backticks allow interpolation
+// (like Dart's $variable)</span>
+<span class="kw">const</span> msg = <span class="str">`Hello, ${name}!`</span>;
+
+<span class="cmt">// Multi-line strings</span>
+<span class="kw">const</span> html = <span class="str">`
+  &lt;div&gt;
+    &lt;p&gt;${msg}&lt;/p&gt;
+  &lt;/div&gt;
+`</span>;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Destructuring</h3>
+<pre><code><span class="cmt">// Object destructuring</span>
+<span class="kw">const</span> user = { name: <span class="str">"A"</span>, age: 25 };
+<span class="kw">const</span> { name, age } = user;
+
+<span class="cmt">// Array destructuring</span>
+<span class="kw">const</span> [first, second] = [10, 20];
+
+<span class="cmt">// With defaults</span>
+<span class="kw">const</span> { role = <span class="str">"user"</span> } = user;
+
+<span class="cmt">// Rename on destructure</span>
+<span class="kw">const</span> { name: userName } = user;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Spread &amp; Rest</h3>
+<pre><code><span class="cmt">// Spread: unpack into new value</span>
+<span class="kw">const</span> a = [1, 2, 3];
+<span class="kw">const</span> b = [...a, 4, 5]; <span class="cmt">// [1,2,3,4,5]</span>
+
+<span class="kw">const</span> obj1 = { x: 1 };
+<span class="kw">const</span> obj2 = { ...obj1, y: 2 };
+<span class="cmt">// { x: 1, y: 2 }</span>
+
+<span class="cmt">// Rest: collect remaining args</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums) {
+  <span class="kw">return</span> nums.reduce((a, b) => a + b);
+}
+<span class="fn">sum</span>(1, 2, 3); <span class="cmt">// 6</span></code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Optional Chaining &amp; Nullish</h3>
+<pre><code><span class="kw">const</span> user = { profile: <span class="kw">null</span> };
+
+<span class="cmt">// ?. — safe navigation
+// (same as Dart's ?.)</span>
+user.profile?.avatar; <span class="cmt">// undefined</span>
+
+<span class="cmt">// ?? — nullish coalescing
+// returns right side if left
+// is null or undefined
+// (same as Dart's ??)</span>
+<span class="kw">const</span> name = user.name ?? <span class="str">"Guest"</span>;
+
+<span class="cmt">// Difference from ||:
+// "" || "default"  → "default"
+// "" ?? "default"  → ""
+// (|| treats "", 0, false as
+//  falsy; ?? only null/undefined)</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Array Methods ---- -->
+    <div class="section-title"><span class="section-num">04</span> Array Methods (Very Common)</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Transforming</h3>
+<pre><code><span class="kw">const</span> nums = [1, 2, 3, 4, 5];
+
+<span class="cmt">// map — transform each element
+// Like Dart's .map()</span>
+nums.map(n => n * 2);
+<span class="cmt">// [2, 4, 6, 8, 10]</span>
+
+<span class="cmt">// filter — keep matching
+// Like Dart's .where()</span>
+nums.filter(n => n > 3);
+<span class="cmt">// [4, 5]</span>
+
+<span class="cmt">// reduce — accumulate to one value
+// Like Dart's .fold()</span>
+nums.reduce((sum, n) => sum + n, 0);
+<span class="cmt">// 15</span>
+
+<span class="cmt">// find — first match (or undefined)
+// Like Dart's .firstWhere()</span>
+nums.find(n => n > 3); <span class="cmt">// 4</span></code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Mutating &amp; Checking</h3>
+<pre><code><span class="kw">const</span> arr = [<span class="str">"a"</span>, <span class="str">"b"</span>];
+
+<span class="cmt">// Add/remove</span>
+arr.push(<span class="str">"c"</span>);    <span class="cmt">// end → ["a","b","c"]</span>
+arr.pop();        <span class="cmt">// end → ["a","b"]</span>
+arr.unshift(<span class="str">"z"</span>); <span class="cmt">// start → ["z","a","b"]</span>
+arr.shift();      <span class="cmt">// start → ["a","b"]</span>
+
+<span class="cmt">// splice(index, deleteCount, ...items)</span>
+arr.splice(1, 0, <span class="str">"x"</span>);
+<span class="cmt">// insert "x" at index 1</span>
+
+<span class="cmt">// Checking</span>
+arr.includes(<span class="str">"a"</span>);  <span class="cmt">// true</span>
+arr.indexOf(<span class="str">"b"</span>);   <span class="cmt">// 1 (-1 if not found)</span>
+arr.every(x => x); <span class="cmt">// all truthy?</span>
+arr.some(x => x);  <span class="cmt">// any truthy?</span>
+
+<span class="cmt">// for...of (like Dart for-in)</span>
+<span class="kw">for</span> (<span class="kw">const</span> item <span class="kw">of</span> arr) {
+  console.log(item);
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Async ---- -->
+    <div class="section-title"><span class="section-num">05</span> Async (You Know Dart &mdash; Here&rsquo;s The JS Version)</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Promises &amp; async/await</h3>
+<pre><code><span class="cmt">// A Promise is like Dart's Future</span>
+<span class="kw">const</span> p = <span class="kw">new</span> Promise((resolve, reject) => {
+  setTimeout(() => resolve(<span class="str">"done"</span>), 1000);
+});
+
+<span class="cmt">// .then/.catch — like Dart's Future API</span>
+p.then(val => console.log(val))
+ .catch(err => console.error(err));
+
+<span class="cmt">// async/await — identical to Dart</span>
+<span class="kw">async function</span> <span class="fn">fetchData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">"/api/data"</span>);
+    <span class="kw">const</span> json = <span class="kw">await</span> res.json();
+    <span class="kw">return</span> json;
+  } <span class="kw">catch</span> (err) {
+    console.error(err);
+  }
+}
+
+<span class="cmt">// Promise.all — parallel
+// (like Dart's Future.wait)</span>
+<span class="kw">const</span> [a, b] = <span class="kw">await</span> Promise.all([
+  fetch(<span class="str">"/api/1"</span>),
+  fetch(<span class="str">"/api/2"</span>)
+]);</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>fetch() — HTTP Requests</h3>
+<pre><code><span class="cmt">// GET request</span>
+<span class="kw">const</span> res = <span class="kw">await</span> fetch(<span class="str">"/api/users"</span>);
+<span class="kw">const</span> users = <span class="kw">await</span> res.json();
+
+<span class="cmt">// POST request with JSON body</span>
+<span class="kw">await</span> fetch(<span class="str">"/api/users"</span>, {
+  method: <span class="str">"POST"</span>,
+  headers: {
+    <span class="str">"Content-Type"</span>: <span class="str">"application/json"</span>
+  },
+  body: JSON.stringify({
+    name: <span class="str">"Alice"</span>,
+    email: <span class="str">"a@b.com"</span>
+  })
+});
+
+<span class="cmt">// Check response status</span>
+<span class="kw">if</span> (!res.ok) {
+  <span class="kw">throw new</span> Error(<span class="str">`HTTP ${res.status}`</span>);
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Modules ---- -->
+    <div class="section-title"><span class="section-num">06</span> Modules (import / export)</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="cmt">// ─── math.js ───</span>
+<span class="kw">export function</span> <span class="fn">add</span>(a, b) {
+  <span class="kw">return</span> a + b;
+}
+<span class="kw">export const</span> PI = 3.14;
+<span class="kw">export default class</span> <span class="fn">Calculator</span> { }
+
+<span class="cmt">// ─── app.js ───</span>
+<span class="marker" data-note="m1"><span class="kw">import</span> Calculator <span class="kw">from</span> <span class="str">'./math.js'</span>;</span>
+<span class="marker" data-note="m2"><span class="kw">import</span> { add, PI } <span class="kw">from</span> <span class="str">'./math.js'</span>;</span>
+<span class="marker" data-note="m3"><span class="kw">import</span> * <span class="kw">as</span> math <span class="kw">from</span> <span class="str">'./math.js'</span>;</span>
+
+<span class="cmt">// In HTML, you need type="module":</span>
+<span class="cmt">// &lt;script type="module" src="app.js"&gt;</span></code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="m1">
+                <span class="note-badge">default</span>
+                Default export &mdash; no braces needed. Each file can have one default. Like Dart&rsquo;s typical one-class-per-file pattern.
+            </div>
+            <div class="note" data-note="m2">
+                <span class="note-badge">named</span>
+                Named exports &mdash; use braces. A file can have many. Like Dart&rsquo;s <code>show</code> directive.
+            </div>
+            <div class="note" data-note="m3">
+                <span class="note-badge">namespace</span>
+                Import everything as a namespace object. Access via <code>math.add()</code>, <code>math.PI</code>.
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- Classes & Objects ---- -->
+    <div class="section-title"><span class="section-num">07</span> Classes &amp; Objects</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Classes (Very Similar to Dart)</h3>
+<pre><code><span class="kw">class</span> <span class="fn">Animal</span> {
+  <span class="cmt">// Constructor</span>
+  constructor(name) {
+    <span class="kw">this</span>.name = name; <span class="cmt">// no "late" needed</span>
+  }
+
+  <span class="cmt">// Method</span>
+  speak() {
+    <span class="kw">return</span> <span class="str">`${<span class="kw">this</span>.name} makes sound`</span>;
+  }
+
+  <span class="cmt">// Getter</span>
+  <span class="kw">get</span> info() { <span class="kw">return</span> <span class="kw">this</span>.name; }
+
+  <span class="cmt">// Static method</span>
+  <span class="kw">static</span> create(n) {
+    <span class="kw">return new</span> <span class="fn">Animal</span>(n);
+  }
+}
+
+<span class="cmt">// Inheritance</span>
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> <span class="fn">Animal</span> {
+  constructor(name, breed) {
+    <span class="kw">super</span>(name); <span class="cmt">// must call super()</span>
+    <span class="kw">this</span>.breed = breed;
+  }
+}
+
+<span class="kw">const</span> d = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>, <span class="str">"Lab"</span>);
+d.speak(); <span class="cmt">// "Rex makes sound"</span></code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Object Tricks</h3>
+<pre><code><span class="cmt">// Shorthand properties</span>
+<span class="kw">const</span> x = 1, y = 2;
+<span class="kw">const</span> pt = { x, y }; <span class="cmt">// { x: 1, y: 2 }</span>
+
+<span class="cmt">// Computed property names</span>
+<span class="kw">const</span> key = <span class="str">"color"</span>;
+<span class="kw">const</span> obj = { [key]: <span class="str">"red"</span> };
+<span class="cmt">// { color: "red" }</span>
+
+<span class="cmt">// Object.keys / values / entries</span>
+Object.keys(obj);
+<span class="cmt">// ["color"]</span>
+Object.values(obj);
+<span class="cmt">// ["red"]</span>
+Object.entries(obj);
+<span class="cmt">// [["color", "red"]]</span>
+
+<span class="cmt">// JSON ↔ Object</span>
+<span class="kw">const</span> json = JSON.stringify(obj);
+<span class="kw">const</span> back = JSON.parse(json);
+
+<span class="cmt">// typeof — check type at runtime</span>
+<span class="kw">typeof</span> <span class="str">"hi"</span>  <span class="cmt">// "string"</span>
+<span class="kw">typeof</span> 42    <span class="cmt">// "number"</span>
+<span class="kw">typeof</span> <span class="kw">null</span>  <span class="cmt">// "object" ← famous bug</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Error Handling ---- -->
+    <div class="section-title"><span class="section-num">08</span> Error Handling</div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code><span class="cmt">// try / catch / finally — identical to Dart</span>
+<span class="kw">try</span> {
+  <span class="kw">const</span> data = JSON.parse(badInput);
+} <span class="kw">catch</span> (err) {
+  console.error(err.message);
+} <span class="kw">finally</span> {
+  <span class="cmt">// always runs, like Dart's finally</span>
+}
+
+<span class="cmt">// Throw custom errors</span>
+<span class="kw">throw new</span> Error(<span class="str">"Something went wrong"</span>);
+
+<span class="cmt">// Custom error class</span>
+<span class="kw">class</span> <span class="fn">NotFoundError</span> <span class="kw">extends</span> Error {
+  constructor(id) {
+    <span class="kw">super</span>(<span class="str">`Item ${id} not found`</span>);
+    <span class="kw">this</span>.name = <span class="str">"NotFoundError"</span>;
+  }
+}</code></pre>
+    </div>
+
+    <div class="nav-bottom">
+        <button class="nav-btn prev-btn" data-target="0">&larr; Prev: HTML</button>
+        <button class="nav-btn next-btn" data-target="2">Next: JS &times; HTML &rarr;</button>
+    </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PAGE 2 — JS × HTML (DOM MANIPULATION)                             -->
+<!-- ================================================================ -->
+<section class="page" id="page-2">
+    <div class="hero">
+        <h1>JS &times; HTML &mdash; The Bridge</h1>
+        <p class="hero-sub">When the browser parses your <code>.html</code> file, it builds a <strong>DOM tree</strong> in memory. The DOM is not defined anywhere in your HTML &mdash; it&rsquo;s a live object model the browser constructs. JavaScript talks to the page by reading and modifying this tree.</p>
+    </div>
+
+    <div class="info-box">
+        <strong>Sources vs Elements (F12):</strong> The <em>Sources</em> panel shows your original static files (the &ldquo;blueprint&rdquo;). The <em>Elements</em> panel shows the live DOM tree (the &ldquo;building&rdquo;). If JS adds a <code>&lt;div&gt;</code> at runtime, it appears in Elements but not in Sources.
+    </div>
+
+    <!-- ---- Finding Elements ---- -->
+    <div class="section-title"><span class="section-num">01</span> Finding Elements</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="cmt">// By ID — fastest, returns one element</span>
+<span class="kw">const</span> title = document.<span class="fn">getElementById</span>(<span class="str">"title"</span>);
+
+<span class="cmt">// By CSS selector — very flexible</span>
+<span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">".btn"</span>);
+<span class="cmt">// Returns first match</span>
+
+<span class="kw">const</span> all = document.<span class="fn">querySelectorAll</span>(<span class="str">"li"</span>);
+<span class="cmt">// Returns NodeList (array-like)</span>
+
+<span class="cmt">// By class name — returns HTMLCollection</span>
+<span class="kw">const</span> items = document
+  .<span class="fn">getElementsByClassName</span>(<span class="str">"item"</span>);
+
+<span class="cmt">// By tag name</span>
+<span class="kw">const</span> paras = document
+  .<span class="fn">getElementsByTagName</span>(<span class="str">"p"</span>);
+
+<span class="cmt">// Console shortcut (F12 only):</span>
+<span class="cmt">// $("selector")  = querySelector</span>
+<span class="cmt">// $$("selector") = querySelectorAll</span>
+<span class="cmt">// $0 = currently selected element</span>
+<span class="cmt">// $_ = last expression result</span></code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="">
+                <span class="note-badge">tip</span>
+                Think of <code>document</code> as the root of the DOM tree. Every query starts from here. <code>querySelector</code> accepts any CSS selector &mdash; <code>#id</code>, <code>.class</code>, <code>div > p</code>, <code>[data-x]</code>.
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">⚠️</span>
+                <code>getElementsByClassName</code> returns a <em>live</em> collection &mdash; it updates automatically when the DOM changes. <code>querySelectorAll</code> returns a <em>static</em> snapshot.
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- Modifying Elements ---- -->
+    <div class="section-title"><span class="section-num">02</span> Modifying Elements</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Content &amp; Attributes</h3>
+<pre><code><span class="kw">const</span> el = document.<span class="fn">querySelector</span>(<span class="str">"h1"</span>);
+
+<span class="cmt">// Change text (safe, no HTML parsing)</span>
+el.innerText = <span class="str">"New Title"</span>;
+
+<span class="cmt">// Change HTML (parses tags!)</span>
+el.innerHTML = <span class="str">"&lt;em&gt;Fancy&lt;/em&gt; Title"</span>;
+
+<span class="cmt">// Read/set attributes</span>
+el.getAttribute(<span class="str">"id"</span>);
+el.setAttribute(<span class="str">"id"</span>, <span class="str">"main-title"</span>);
+el.removeAttribute(<span class="str">"style"</span>);
+
+<span class="cmt">// Data attributes</span>
+<span class="cmt">// HTML: &lt;div data-user-id="42"&gt;</span>
+el.dataset.userId; <span class="cmt">// "42"</span></code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Styles &amp; Classes</h3>
+<pre><code><span class="kw">const</span> box = document.<span class="fn">querySelector</span>(<span class="str">".box"</span>);
+
+<span class="cmt">// Inline styles (camelCase!)</span>
+box.style.backgroundColor = <span class="str">"red"</span>;
+box.style.fontSize = <span class="str">"20px"</span>;
+box.style.display = <span class="str">"none"</span>; <span class="cmt">// hide</span>
+
+<span class="cmt">// Class manipulation (preferred)</span>
+box.classList.add(<span class="str">"active"</span>);
+box.classList.remove(<span class="str">"hidden"</span>);
+box.classList.toggle(<span class="str">"dark"</span>);
+<span class="cmt">// toggle: adds if missing,
+//         removes if present</span>
+
+box.classList.contains(<span class="str">"active"</span>);
+<span class="cmt">// true or false</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Events ---- -->
+    <div class="section-title"><span class="section-num">03</span> Events (Making Things Happen)</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">"#btn"</span>);
+
+<span class="cmt">// Add event listener</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, (event) => {
+  console.log(<span class="str">"Clicked!"</span>, event.target);
+});
+
+<span class="cmt">// Common event types:</span>
+<span class="cmt">// "click"      — mouse click</span>
+<span class="cmt">// "dblclick"   — double click</span>
+<span class="cmt">// "mouseover"  — hover in</span>
+<span class="cmt">// "mouseout"   — hover out</span>
+<span class="cmt">// "keydown"    — key pressed</span>
+<span class="cmt">// "keyup"      — key released</span>
+<span class="cmt">// "input"      — text input changed</span>
+<span class="cmt">// "submit"     — form submitted</span>
+<span class="cmt">// "change"     — value changed (select/checkbox)</span>
+<span class="cmt">// "scroll"     — user scrolled</span>
+<span class="cmt">// "load"       — resource finished loading</span>
+<span class="cmt">// "DOMContentLoaded" — HTML parsed</span>
+
+<span class="cmt">// Remove listener</span>
+<span class="kw">const</span> handler = () => console.log(<span class="str">"hi"</span>);
+btn.<span class="fn">addEventListener</span>(<span class="str">"click"</span>, handler);
+btn.<span class="fn">removeEventListener</span>(<span class="str">"click"</span>, handler);
+<span class="cmt">// Must pass the same function reference!</span></code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="">
+                <span class="note-badge">event</span>
+                The <code>event</code> object contains metadata: <code>event.target</code> (which element was clicked), <code>event.key</code> (which key was pressed), <code>event.preventDefault()</code> (stop default behavior like form submit).
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">delegation</span>
+                Instead of adding listeners to 100 list items, add one to the parent <code>&lt;ul&gt;</code> and check <code>event.target</code>. This is called <strong>event delegation</strong> &mdash; much more efficient.
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- Creating & Removing ---- -->
+    <div class="section-title"><span class="section-num">04</span> Creating &amp; Removing Elements</div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code><span class="cmt">// Create a new element</span>
+<span class="kw">const</span> div = document.<span class="fn">createElement</span>(<span class="str">"div"</span>);
+div.className = <span class="str">"card"</span>;
+div.innerText = <span class="str">"I was born in JS!"</span>;
+
+<span class="cmt">// Append to the DOM tree</span>
+document.body.<span class="fn">appendChild</span>(div);
+
+<span class="cmt">// Insert before a specific element</span>
+<span class="kw">const</span> ref = document.<span class="fn">querySelector</span>(<span class="str">"#ref"</span>);
+ref.parentNode.<span class="fn">insertBefore</span>(div, ref);
+
+<span class="cmt">// Modern: insert at specific position</span>
+ref.<span class="fn">insertAdjacentHTML</span>(
+  <span class="str">"beforebegin"</span>,  <span class="cmt">// before ref itself</span>
+  <span class="str">"&lt;p&gt;Injected!&lt;/p&gt;"</span>
+);
+<span class="cmt">// Positions: "beforebegin", "afterbegin",
+//            "beforeend", "afterend"</span>
+
+<span class="cmt">// Remove an element</span>
+div.<span class="fn">remove</span>();
+<span class="cmt">// Or: parent.removeChild(div);</span>
+
+<span class="cmt">// Clone an element</span>
+<span class="kw">const</span> clone = div.<span class="fn">cloneNode</span>(<span class="kw">true</span>);
+<span class="cmt">// true = deep clone (children too)</span></code></pre>
+    </div>
+
+    <!-- ---- Timers ---- -->
+    <div class="section-title"><span class="section-num">05</span> Timers</div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code><span class="cmt">// Run once after delay</span>
+<span class="kw">const</span> id = <span class="fn">setTimeout</span>(() => {
+  console.log(<span class="str">"1 second passed"</span>);
+}, 1000); <span class="cmt">// milliseconds</span>
+
+<span class="fn">clearTimeout</span>(id); <span class="cmt">// cancel it</span>
+
+<span class="cmt">// Run repeatedly</span>
+<span class="kw">let</span> count = 0;
+<span class="kw">const</span> timer = <span class="fn">setInterval</span>(() => {
+  count++;
+  document.title = <span class="str">`${count}s`</span>;
+  <span class="kw">if</span> (count >= 10) <span class="fn">clearInterval</span>(timer);
+}, 1000);
+
+<span class="cmt">// Animation loop (smooth 60fps redraws)</span>
+<span class="kw">function</span> <span class="fn">animate</span>() {
+  <span class="cmt">// update positions...</span>
+  <span class="fn">requestAnimationFrame</span>(animate);
+}
+<span class="fn">requestAnimationFrame</span>(animate);</code></pre>
+    </div>
+
+    <!-- ---- Web Storage ---- -->
+    <div class="section-title"><span class="section-num">06</span> Web Storage (Browser&rsquo;s Mini Database)</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>localStorage (Permanent)</h3>
+<pre><code><span class="cmt">// Survives browser close &amp; restart</span>
+<span class="cmt">// ~5-10 MB per origin</span>
+<span class="cmt">// Strings only — JSON for objects</span>
+
+localStorage.<span class="fn">setItem</span>(<span class="str">"theme"</span>, <span class="str">"dark"</span>);
+localStorage.<span class="fn">getItem</span>(<span class="str">"theme"</span>); <span class="cmt">// "dark"</span>
+localStorage.<span class="fn">removeItem</span>(<span class="str">"theme"</span>);
+localStorage.<span class="fn">clear</span>(); <span class="cmt">// wipe all</span>
+
+<span class="cmt">// Store objects via JSON</span>
+<span class="kw">const</span> cart = [{ id: 1, qty: 2 }];
+localStorage.<span class="fn">setItem</span>(
+  <span class="str">"cart"</span>,
+  JSON.stringify(cart)
+);
+<span class="kw">const</span> loaded = JSON.parse(
+  localStorage.<span class="fn">getItem</span>(<span class="str">"cart"</span>)
+);</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>sessionStorage (Temporary)</h3>
+<pre><code><span class="cmt">// Same API as localStorage</span>
+<span class="cmt">// But data is cleared when the
+// tab/window is closed</span>
+
+sessionStorage.<span class="fn">setItem</span>(
+  <span class="str">"token"</span>, <span class="str">"abc123"</span>
+);
+sessionStorage.<span class="fn">getItem</span>(<span class="str">"token"</span>);
+
+<span class="cmt">// Use cases:
+// - One-time login tokens
+// - Form progress in a single session
+// - Temporary UI state</span>
+
+<span class="cmt">// Both storage types are
+// scoped to the origin (domain).
+// Different sites cannot read
+// each other's storage.</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Live Demo ---- -->
+    <div class="section-title"><span class="section-num">07</span> Live Demo &mdash; Try It</div>
+
+    <div class="demo-container">
+        <div class="demo-code">
+            <h3>The Code</h3>
+<pre><code><span class="cmt">&lt;!-- HTML --&gt;</span>
+&lt;h2 id="demo-title"&gt;Click the button!&lt;/h2&gt;
+&lt;button id="demo-btn"&gt;Magic&lt;/button&gt;
+&lt;ul id="demo-list"&gt;&lt;/ul&gt;
+
+<span class="cmt">&lt;!-- JS --&gt;</span>
+<span class="kw">const</span> btn = document.getElementById(<span class="str">"demo-btn"</span>);
+<span class="kw">const</span> title = document.getElementById(<span class="str">"demo-title"</span>);
+<span class="kw">const</span> list = document.getElementById(<span class="str">"demo-list"</span>);
+<span class="kw">let</span> count = 0;
+
+btn.addEventListener(<span class="str">"click"</span>, () => {
+  count++;
+  title.innerText = <span class="str">`Clicked ${count} times`</span>;
+  title.style.color = count % 2 ? <span class="str">"#e74c3c"</span> : <span class="str">"#2ecc71"</span>;
+
+  <span class="kw">const</span> li = document.createElement(<span class="str">"li"</span>);
+  li.innerText = <span class="str">`Item #${count}`</span>;
+  list.appendChild(li);
+});</code></pre>
+        </div>
+        <div class="demo-result">
+            <h3>Live Result</h3>
+            <div class="demo-area">
+                <h2 id="demo-title">Click the button!</h2>
+                <button id="demo-btn" class="demo-button">Magic</button>
+                <ul id="demo-list"></ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="nav-bottom">
+        <button class="nav-btn prev-btn" data-target="1">&larr; Prev: JavaScript</button>
+        <button class="nav-btn next-btn" data-target="3">Next: CSS &rarr;</button>
+    </div>
+</section>
+
+<!-- ================================================================ -->
+<!-- PAGE 3 — CSS                                                      -->
+<!-- ================================================================ -->
+<section class="page" id="page-3">
+    <div class="hero">
+        <h1>CSS &mdash; The Clothes</h1>
+        <p class="hero-sub">CSS (Cascading Style Sheets) controls <em>how</em> HTML looks. Without CSS, every page is black text on a white background. The &ldquo;Cascading&rdquo; means later/more-specific rules override earlier/less-specific ones.</p>
+    </div>
+
+    <!-- ---- Three Ways ---- -->
+    <div class="section-title"><span class="section-num">01</span> Three Ways to Apply CSS</div>
+
+    <div class="two-col triple">
+        <div class="card">
+            <h3>1. External File (Best)</h3>
+<pre><code><span class="cmt">&lt;!-- In &lt;head&gt; --&gt;</span>
+&lt;link rel="stylesheet"
+      href="styles.css"&gt;
+
+<span class="cmt">/* styles.css */</span>
+body {
+  background: #f5f5f5;
+  font-family: sans-serif;
+}</code></pre>
+            <p class="card-note">Cached by browser. Loads in parallel. Use this for real projects.</p>
+        </div>
+
+        <div class="card">
+            <h3>2. &lt;style&gt; Tag</h3>
+<pre><code><span class="cmt">&lt;!-- In &lt;head&gt; --&gt;</span>
+&lt;style&gt;
+  h1 {
+    color: blue;
+    text-align: center;
+  }
+&lt;/style&gt;</code></pre>
+            <p class="card-note">Good for small pages. No extra HTTP request. Cannot be cached separately.</p>
+        </div>
+
+        <div class="card">
+            <h3>3. Inline Style</h3>
+<pre><code>&lt;p style="color: red;
+          font-size: 20px;"&gt;
+  Styled inline
+&lt;/p&gt;</code></pre>
+            <p class="card-note">Highest specificity. Hard to maintain. Avoid unless dynamically set by JS.</p>
+        </div>
+    </div>
+
+    <!-- ---- Selectors ---- -->
+    <div class="section-title"><span class="section-num">02</span> Selectors &mdash; Targeting Elements</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="cmt">/* Element selector */</span>
+p { color: gray; }
+
+<span class="cmt">/* Class selector (reusable) */</span>
+.card { border: 1px solid #ccc; }
+
+<span class="cmt">/* ID selector (unique) */</span>
+#header { height: 60px; }
+
+<span class="cmt">/* Attribute selector */</span>
+input[type="email"] { border-color: blue; }
+
+<span class="cmt">/* Descendant (space) */</span>
+.nav a { text-decoration: none; }
+
+<span class="cmt">/* Direct child (>) */</span>
+ul > li { margin: 4px 0; }
+
+<span class="cmt">/* Pseudo-classes */</span>
+a:hover { color: red; }
+li:first-child { font-weight: bold; }
+input:focus { outline: 2px solid blue; }
+li:nth-child(2n) { background: #f9f9f9; }
+
+<span class="cmt">/* Pseudo-elements */</span>
+p::first-letter { font-size: 2em; }
+.icon::before { content: "★ "; }
+
+<span class="cmt">/* Combinators */</span>
+h1 + p { margin-top: 0; } <span class="cmt">/* adjacent sibling */</span>
+h1 ~ p { color: gray; }   <span class="cmt">/* general sibling */</span></code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="">
+                <span class="note-badge">specificity</span>
+                When rules conflict, the more <strong>specific</strong> selector wins:<br>
+                inline &gt; #id &gt; .class &gt; element<br>
+                <code>1000 &gt; 100 &gt; 10 &gt; 1</code><br>
+                Equal specificity? Last one wins (cascade).
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">:hover</span>
+                Pseudo-classes target <em>states</em>: hover, focus, active, first-child, nth-child. Pseudo-<em>elements</em> (::before, ::after) create virtual content.
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">!important</span>
+                <code>color: red !important;</code> overrides everything. <strong>Avoid it.</strong> It makes debugging a nightmare. Fix specificity order instead.
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- Box Model ---- -->
+    <div class="section-title"><span class="section-num">03</span> The Box Model</div>
+
+    <div class="box-model-demo">
+        <div class="bm-label bm-margin-label">margin <span class="bm-dim">(space outside)</span></div>
+        <div class="bm-margin">
+            <div class="bm-label bm-border-label">border</div>
+            <div class="bm-border">
+                <div class="bm-label bm-padding-label">padding <span class="bm-dim">(space inside)</span></div>
+                <div class="bm-padding">
+                    <div class="bm-content">content</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code>.box {
+  <span class="cmt">/* Content dimensions */</span>
+  width: 200px;
+  height: 100px;
+
+  <span class="cmt">/* Padding — inside the border */</span>
+  padding: 16px;           <span class="cmt">/* all sides */</span>
+  padding: 10px 20px;      <span class="cmt">/* top/bottom  left/right */</span>
+  padding: 5px 10px 15px 20px; <span class="cmt">/* T R B L (clockwise) */</span>
+
+  <span class="cmt">/* Border */</span>
+  border: 2px solid #333;
+  border-radius: 8px;      <span class="cmt">/* rounded corners */</span>
+
+  <span class="cmt">/* Margin — outside the border */</span>
+  margin: 20px auto;       <span class="cmt">/* auto centers horizontally */</span>
+
+  <span class="cmt">/* CRITICAL: by default, width does NOT
+     include padding+border. This fixes it: */</span>
+  box-sizing: border-box;
+}
+
+<span class="cmt">/* Apply border-box globally (best practice) */</span>
+*, *::before, *::after {
+  box-sizing: border-box;
+}</code></pre>
+    </div>
+
+    <!-- ---- Colors & Typography ---- -->
+    <div class="section-title"><span class="section-num">04</span> Colors &amp; Typography</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Colors</h3>
+<pre><code><span class="cmt">/* Named */</span>
+color: red;
+
+<span class="cmt">/* Hex (most common) */</span>
+color: #ff6600;
+color: #f60;         <span class="cmt">/* shorthand */</span>
+
+<span class="cmt">/* RGB / RGBA */</span>
+color: rgb(255, 102, 0);
+color: rgba(255, 102, 0, 0.5); <span class="cmt">/* 50% opacity */</span>
+
+<span class="cmt">/* HSL — Hue, Saturation, Lightness */</span>
+color: hsl(24, 100%, 50%);
+
+<span class="cmt">/* Backgrounds */</span>
+background-color: #f5f5f5;
+background: linear-gradient(
+  135deg, #667eea, #764ba2
+);
+background-image: url("bg.jpg");
+background-size: cover;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Typography</h3>
+<pre><code><span class="cmt">/* Font family — with fallback chain */</span>
+font-family: "Inter", "Segoe UI",
+             Arial, sans-serif;
+
+<span class="cmt">/* Size */</span>
+font-size: 16px;    <span class="cmt">/* absolute */</span>
+font-size: 1rem;    <span class="cmt">/* relative to root */</span>
+font-size: 1.2em;   <span class="cmt">/* relative to parent */</span>
+
+<span class="cmt">/* Weight */</span>
+font-weight: bold;  <span class="cmt">/* or 400, 700, etc */</span>
+
+<span class="cmt">/* Line spacing */</span>
+line-height: 1.6;   <span class="cmt">/* unitless multiplier */</span>
+
+<span class="cmt">/* Alignment */</span>
+text-align: center;
+text-align: left;
+text-align: justify;
+
+<span class="cmt">/* Decoration */</span>
+text-decoration: none;     <span class="cmt">/* remove underline */</span>
+text-transform: uppercase;</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Display & Layout ---- -->
+    <div class="section-title"><span class="section-num">05</span> Display &amp; Layout</div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code><span class="cmt">/* Display types */</span>
+display: block;        <span class="cmt">/* full width, new line (div, p, h1) */</span>
+display: inline;       <span class="cmt">/* flows with text (span, a, strong) */</span>
+display: inline-block; <span class="cmt">/* inline but accepts width/height */</span>
+display: none;         <span class="cmt">/* completely hidden */</span>
+display: flex;         <span class="cmt">/* Flexbox layout */</span>
+display: grid;         <span class="cmt">/* Grid layout */</span>
+
+<span class="cmt">/* Position */</span>
+position: static;      <span class="cmt">/* default — normal flow */</span>
+position: relative;    <span class="cmt">/* offset from normal position */</span>
+position: absolute;    <span class="cmt">/* relative to nearest positioned ancestor */</span>
+position: fixed;       <span class="cmt">/* relative to viewport (stays on scroll) */</span>
+position: sticky;      <span class="cmt">/* normal until scroll point, then fixed */</span>
+
+<span class="cmt">/* With position, use: top, right, bottom, left */</span>
+.tooltip {
+  position: absolute;
+  top: 100%;
+  left: 0;
+}
+
+<span class="cmt">/* Overflow */</span>
+overflow: hidden;      <span class="cmt">/* clip content */</span>
+overflow: scroll;      <span class="cmt">/* always show scrollbar */</span>
+overflow: auto;        <span class="cmt">/* scrollbar only if needed */</span></code></pre>
+    </div>
+
+    <!-- ---- Flexbox ---- -->
+    <div class="section-title"><span class="section-num">06</span> Flexbox &mdash; One-Dimensional Layout</div>
+
+    <div class="annotated-code">
+        <div class="code-side">
+<pre><code><span class="cmt">/* Parent (flex container) */</span>
+.container {
+  display: flex;
+
+  <span class="cmt">/* Main axis direction */</span>
+  flex-direction: row;       <span class="cmt">/* ← default → */</span>
+  flex-direction: column;    <span class="cmt">/* ↓ vertical ↓ */</span>
+
+  <span class="cmt">/* Main axis alignment */</span>
+  justify-content: center;
+  justify-content: space-between;
+  justify-content: space-around;
+
+  <span class="cmt">/* Cross axis alignment */</span>
+  align-items: center;
+  align-items: stretch;      <span class="cmt">/* default */</span>
+
+  <span class="cmt">/* Wrap */</span>
+  flex-wrap: wrap;           <span class="cmt">/* overflow to next line */</span>
+
+  gap: 16px;                 <span class="cmt">/* space between items */</span>
+}
+
+<span class="cmt">/* Children (flex items) */</span>
+.item {
+  flex: 1;           <span class="cmt">/* grow to fill space */</span>
+  flex: 0 0 200px;   <span class="cmt">/* fixed 200px, no grow/shrink */</span>
+  align-self: end;   <span class="cmt">/* override parent align */</span>
+  order: -1;         <span class="cmt">/* reorder visually */</span>
+}</code></pre>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="">
+                <span class="note-badge">mental model</span>
+                Flexbox works on <strong>one axis</strong> at a time. <code>justify-content</code> controls the <em>main</em> axis (the direction items flow). <code>align-items</code> controls the <em>cross</em> axis (perpendicular).
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">common pattern</span>
+                Center anything horizontally + vertically:<br>
+                <code>display: flex;<br>justify-content: center;<br>align-items: center;</code>
+            </div>
+            <div class="note" data-note="">
+                <span class="note-badge">flex: 1</span>
+                Shorthand for <code>flex-grow: 1; flex-shrink: 1; flex-basis: 0%</code>. Items share available space equally. Two items with <code>flex:1</code> each get 50%.
+            </div>
+        </div>
+    </div>
+
+    <!-- ---- Grid ---- -->
+    <div class="section-title"><span class="section-num">07</span> CSS Grid &mdash; Two-Dimensional Layout</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Grid Container</h3>
+<pre><code>.grid {
+  display: grid;
+
+  <span class="cmt">/* Define columns */</span>
+  grid-template-columns: 200px 1fr 1fr;
+  <span class="cmt">/* 200px fixed, then 2 equal columns */</span>
+
+  <span class="cmt">/* Repeat shorthand */</span>
+  grid-template-columns: repeat(3, 1fr);
+  <span class="cmt">/* 3 equal columns */</span>
+
+  <span class="cmt">/* Auto-fit responsive */</span>
+  grid-template-columns:
+    repeat(auto-fit, minmax(250px, 1fr));
+  <span class="cmt">/* as many 250px+ columns as fit */</span>
+
+  <span class="cmt">/* Rows */</span>
+  grid-template-rows: auto 1fr auto;
+
+  <span class="cmt">/* Gaps */</span>
+  gap: 16px;
+  column-gap: 24px;
+  row-gap: 12px;
+}</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Grid Items</h3>
+<pre><code><span class="cmt">/* Span multiple columns/rows */</span>
+.wide {
+  grid-column: 1 / 3;  <span class="cmt">/* col 1 to 3 */</span>
+  grid-column: span 2; <span class="cmt">/* span 2 cols */</span>
+}
+
+.tall {
+  grid-row: 1 / 4;     <span class="cmt">/* row 1 to 4 */</span>
+}
+
+<span class="cmt">/* Named areas (very readable) */</span>
+.layout {
+  grid-template-areas:
+    "header  header"
+    "sidebar main"
+    "footer  footer";
+}
+
+.header  { grid-area: header; }
+.sidebar { grid-area: sidebar; }
+.main    { grid-area: main; }
+.footer  { grid-area: footer; }
+
+<span class="cmt">/* Flexbox = 1D (row OR column)
+   Grid    = 2D (rows AND columns)
+   Use both — they complement! */</span></code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Responsive ---- -->
+    <div class="section-title"><span class="section-num">08</span> Responsive Design</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Media Queries</h3>
+<pre><code><span class="cmt">/* Base styles (mobile-first) */</span>
+.container {
+  padding: 16px;
+}
+
+<span class="cmt">/* Tablet and up */</span>
+@media (min-width: 768px) {
+  .container {
+    padding: 32px;
+    max-width: 720px;
+    margin: 0 auto;
+  }
+}
+
+<span class="cmt">/* Desktop */</span>
+@media (min-width: 1024px) {
+  .container {
+    max-width: 960px;
+  }
+  .sidebar {
+    display: block; <span class="cmt">/* show sidebar */</span>
+  }
+}
+
+<span class="cmt">/* Print styles */</span>
+@media print {
+  .no-print { display: none; }
+}</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Responsive Units</h3>
+<pre><code><span class="cmt">/* Viewport units */</span>
+width: 100vw;   <span class="cmt">/* 100% viewport width */</span>
+height: 100vh;  <span class="cmt">/* 100% viewport height */</span>
+
+<span class="cmt">/* Relative units */</span>
+font-size: 1rem;    <span class="cmt">/* root element size */</span>
+font-size: 1.2em;   <span class="cmt">/* parent's font-size */</span>
+width: 50%;         <span class="cmt">/* parent's width */</span>
+
+<span class="cmt">/* Modern: clamp() */</span>
+font-size: clamp(14px, 2vw, 22px);
+<span class="cmt">/* min: 14px, preferred: 2vw, max: 22px
+   Fluid scaling without media queries! */</span>
+
+<span class="cmt">/* Helpful image rule */</span>
+img {
+  max-width: 100%;
+  height: auto;     <span class="cmt">/* preserve ratio */</span>
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- Transitions & Animations ---- -->
+    <div class="section-title"><span class="section-num">09</span> Transitions &amp; Animations</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Transitions (Simple)</h3>
+<pre><code><span class="cmt">/* Smooth property changes */</span>
+.btn {
+  background: #3498db;
+  color: white;
+  transition: all 0.3s ease;
+  <span class="cmt">/* property duration easing */</span>
+}
+.btn:hover {
+  background: #2980b9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+<span class="cmt">/* Specific property only */</span>
+transition: background 0.3s ease,
+            transform 0.2s ease;</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Keyframe Animations</h3>
+<pre><code><span class="cmt">/* Define the animation */</span>
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+<span class="cmt">/* Apply it */</span>
+.card {
+  animation: fadeIn 0.5s ease-out;
+  animation: fadeIn 0.5s ease-out forwards;
+  <span class="cmt">/* forwards = keep final state */</span>
+}
+
+<span class="cmt">/* Multi-step */</span>
+@keyframes pulse {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}</code></pre>
+        </div>
+    </div>
+
+    <!-- ---- CSS Variables ---- -->
+    <div class="section-title"><span class="section-num">10</span> CSS Custom Properties (Variables)</div>
+
+    <div class="card" style="max-width:700px;margin:0 auto 2rem">
+<pre><code><span class="cmt">/* Define variables on :root (global) */</span>
+:root {
+  --primary: #3498db;
+  --bg: #ffffff;
+  --text: #333333;
+  --radius: 8px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+<span class="cmt">/* Use with var() */</span>
+.card {
+  background: var(--bg);
+  color: var(--text);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.btn {
+  background: var(--primary);
+}
+
+<span class="cmt">/* Dark theme — just swap the variables! */</span>
+[data-theme="dark"] {
+  --bg: #1a1a2e;
+  --text: #e0e0e0;
+  --primary: #64b5f6;
+}
+
+<span class="cmt">/* With fallback */</span>
+color: var(--accent, #ff6600);
+<span class="cmt">/* uses #ff6600 if --accent is not defined */</span></code></pre>
+    </div>
+
+    <!-- ---- Common Patterns ---- -->
+    <div class="section-title"><span class="section-num">11</span> Common Patterns</div>
+
+    <div class="two-col">
+        <div class="card">
+            <h3>Centering (The Classic Question)</h3>
+<pre><code><span class="cmt">/* Horizontal center — block */</span>
+.box {
+  width: 300px;
+  margin: 0 auto;
+}
+
+<span class="cmt">/* Horizontal center — text */</span>
+.text { text-align: center; }
+
+<span class="cmt">/* Perfect center — flex */</span>
+.parent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+<span class="cmt">/* Perfect center — grid */</span>
+.parent {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}</code></pre>
+        </div>
+
+        <div class="card">
+            <h3>Scrollable Containers</h3>
+<pre><code><span class="cmt">/* Vertical scroll */</span>
+.list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+<span class="cmt">/* Horizontal scroll */</span>
+.carousel {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+}
+.carousel > .slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+}
+
+<span class="cmt">/* Hide scrollbar but keep scroll */</span>
+.list::-webkit-scrollbar {
+  display: none;
+}
+.list {
+  scrollbar-width: none;
+}</code></pre>
+        </div>
+    </div>
+
+    <div class="info-box">
+        <strong>Reset / Normalize:</strong> Browsers apply default styles (margins on <code>&lt;body&gt;</code>, padding on <code>&lt;ul&gt;</code>). Start every project with: <code>* { margin: 0; padding: 0; box-sizing: border-box; }</code> or use a CSS reset library.
+    </div>
+
+    <!-- ---- Final Cheatsheet ---- -->
+    <div class="section-title"><span class="section-num">★</span> Quick Reference</div>
+
+    <div class="cheatsheet">
+        <table>
+            <thead>
+                <tr>
+                    <th>Concept</th>
+                    <th>Key Takeaway</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>HTML</td><td>Structure. Semantic tags for SEO and accessibility. One <code>&lt;html&gt;</code>, one <code>&lt;head&gt;</code>, one <code>&lt;body&gt;</code>.</td></tr>
+                <tr><td>JavaScript</td><td>Logic. Use <code>const</code>/<code>let</code> (not <code>var</code>). <code>===</code> strict equality. Arrow functions. Async/await for network.</td></tr>
+                <tr><td>DOM</td><td>Live tree built from HTML. JS reads/writes it. <code>querySelector</code> + <code>addEventListener</code> are your bread and butter.</td></tr>
+                <tr><td>CSS Selectors</td><td>Target elements: <code>.class</code> &gt; <code>#id</code> &gt; <code>element</code>. Specificity determines which rule wins.</td></tr>
+                <tr><td>Box Model</td><td>margin → border → padding → content. Use <code>box-sizing: border-box</code> globally.</td></tr>
+                <tr><td>Flexbox</td><td>1D layout. <code>justify-content</code> = main axis. <code>align-items</code> = cross axis. <code>gap</code> for spacing.</td></tr>
+                <tr><td>Grid</td><td>2D layout. <code>grid-template-columns</code> + <code>grid-template-rows</code>. <code>fr</code> unit = fractional space.</td></tr>
+                <tr><td>Responsive</td><td><code>@media</code> queries + <code>clamp()</code> + viewport units. Mobile-first approach.</td></tr>
+                <tr><td>Web Storage</td><td><code>localStorage</code> = permanent. <code>sessionStorage</code> = per-tab. Store JSON via <code>JSON.stringify</code>.</td></tr>
+                <tr><td>Dev Tools (F12)</td><td>Console = JS REPL. Elements = live DOM. Sources = original files. Network = HTTP requests.</td></tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="nav-bottom">
+        <button class="nav-btn prev-btn" data-target="2">&larr; Prev: JS &times; HTML</button>
+        <span></span>
+    </div>
+
+    <div class="footer">
+        <p>Built with pure HTML, CSS, and JavaScript &mdash; no frameworks, no build tools.</p>
+        <p>Frontend in 2 Days &copy; 2026</p>
+    </div>
+</section>
+
+<script src="js/main.js"></script>
+</body>
+</html>
