@@ -255,6 +255,7 @@ body {
    CODE BLOCKS
    ============================================================ */
 pre {
+    position: relative;
     background: var(--bg-code);
     border: 1px solid var(--border);
     border-radius: var(--radius);
@@ -701,4 +702,352 @@ pre code {
         font-size: 0.78rem;
         padding: 12px 14px;
     }
+}
+
+/* ============================================================
+   LIGHT THEME
+   ============================================================ */
+[data-theme="light"] {
+    --bg:          #f5f7fa;
+    --bg-surface:  #ffffff;
+    --bg-card:     #ffffff;
+    --bg-code:     #f0f2f5;
+    --text:        #1a1a2e;
+    --text-dim:    #555;
+    --border:      #d1d5db;
+    --shadow:      0 4px 24px rgba(0,0,0,0.08);
+}
+
+[data-theme="light"] .topbar {
+    background: rgba(245, 247, 250, 0.9);
+}
+
+[data-theme="light"] pre code { color: #24292e; }
+[data-theme="light"] .kw { color: #8b008b; }
+[data-theme="light"] .str { color: #22863a; }
+[data-theme="light"] .cmt { color: #6a737d; }
+[data-theme="light"] .fn { color: #005cc5; }
+
+/* ============================================================
+   PROGRESS BAR
+   ============================================================ */
+.progress-bar {
+    position: fixed;
+    top: var(--topbar-h);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--bg-surface);
+    z-index: 999;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    width: 25%;
+    transition: width 0.4s ease;
+    border-radius: 0 2px 2px 0;
+}
+
+/* ============================================================
+   TOPBAR ACTIONS
+   ============================================================ */
+.topbar-actions {
+    display: flex;
+    gap: 4px;
+}
+
+.topbar-icon-btn {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+.topbar-icon-btn:hover {
+    background: var(--bg-card);
+    color: var(--text);
+    border-color: var(--border);
+}
+
+/* ============================================================
+   TABLE OF CONTENTS SIDEBAR
+   ============================================================ */
+.toc-panel {
+    position: fixed;
+    top: calc(var(--topbar-h) + 3px);
+    right: 0;
+    width: 280px;
+    max-height: calc(100vh - var(--topbar-h) - 3px);
+    overflow-y: auto;
+    background: var(--bg-surface);
+    border-left: 1px solid var(--border);
+    padding: 20px;
+    z-index: 998;
+    transition: transform 0.3s ease;
+}
+
+.toc-panel.hidden {
+    transform: translateX(100%);
+}
+
+.toc-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 12px;
+}
+
+#toc-list {
+    list-style: none;
+}
+
+#toc-list li {
+    margin-bottom: 6px;
+}
+
+#toc-list a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    transition: color 0.2s;
+    display: block;
+    padding: 4px 0;
+}
+
+#toc-list a:hover {
+    color: var(--accent);
+}
+
+/* ============================================================
+   COPY BUTTON
+   ============================================================ */
+.copy-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    padding: 3px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+    z-index: 2;
+}
+
+pre:hover .copy-btn { opacity: 1; }
+
+.copy-btn:hover {
+    background: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.copy-btn.copied {
+    background: var(--accent3);
+    border-color: var(--accent3);
+    color: #fff;
+    opacity: 1;
+}
+
+/* ============================================================
+   SCROLL ANIMATIONS
+   ============================================================ */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ============================================================
+   QUIZ
+   ============================================================ */
+.quiz-section {
+    margin-top: 48px;
+    padding-top: 32px;
+    border-top: 1px solid var(--border);
+}
+
+.quiz-container {
+    max-width: 700px;
+}
+
+.quiz-question {
+    margin-bottom: 24px;
+}
+
+.quiz-prompt {
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: var(--text);
+}
+
+.quiz-prompt code {
+    background: var(--bg-code);
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--accent3);
+}
+
+.quiz-options {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.quiz-option {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.88rem;
+    transition: border-color 0.2s, background 0.2s;
+}
+
+.quiz-option:hover {
+    border-color: var(--accent);
+}
+
+.quiz-option input[type="radio"] {
+    accent-color: var(--accent);
+}
+
+.quiz-option.quiz-correct {
+    border-color: var(--accent3);
+    background: rgba(52, 211, 153, 0.1);
+}
+
+.quiz-option.quiz-wrong {
+    border-color: #ef4444;
+    background: rgba(239, 68, 68, 0.1);
+}
+
+.quiz-feedback {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    min-height: 1.2em;
+}
+
+.quiz-fb-correct { color: var(--accent3); }
+.quiz-fb-wrong { color: #ef4444; }
+
+.quiz-submit-btn {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    margin-top: 8px;
+}
+
+.quiz-submit-btn:hover { background: #5a7af0; }
+
+.quiz-score {
+    margin-top: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--text);
+}
+
+.quiz-perfect { color: var(--accent3); }
+
+/* ============================================================
+   CSS LIVE PREVIEW
+   ============================================================ */
+.css-preview-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 16px 0;
+}
+
+.css-preview-editor label {
+    display: block;
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+}
+
+.css-preview-editor textarea {
+    width: 100%;
+    background: var(--bg-code);
+    color: var(--text);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+    font-family: var(--font-mono);
+    font-size: 0.84rem;
+    line-height: 1.6;
+    resize: vertical;
+}
+
+.css-preview-result {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    min-height: 200px;
+    padding: 20px;
+}
+
+.preview-box {
+    padding: 1.5rem 2rem;
+    background: var(--bg-surface);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius);
+    font-size: 1rem;
+    color: var(--text);
+    transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .css-preview-container { grid-template-columns: 1fr; }
+    .toc-panel { width: 100%; }
+}
+
+/* ============================================================
+   PRINT STYLESHEET
+   ============================================================ */
+@media print {
+    .topbar, .progress-bar, .toc-panel, .nav-bottom,
+    .footer, .copy-btn, .quiz-submit-btn, .topbar-actions,
+    #toc-toggle, #theme-toggle { display: none !important; }
+
+    body { padding-top: 0; background: #fff; color: #000; }
+    .page { display: block !important; max-width: 100%; }
+    pre { border: 1px solid #ccc; }
+    .card { break-inside: avoid; border: 1px solid #ccc; }
+    .note { border: 1px solid #ccc; }
 }

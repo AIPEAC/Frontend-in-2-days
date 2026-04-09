@@ -1,0 +1,187 @@
+<!-- pages/html.html — HTML Tutorial Page (partial) -->
+<div class="hero">
+    <h1>HTML — The Skeleton</h1>
+    <p class="hero-sub">Every webpage is built from a single <code>.html</code> file.
+        HTML isn't a programming language — it's a <em>markup</em> language
+        that tells the browser <strong>what</strong> to display.</p>
+</div>
+
+<!-- 01 — The Document Structure -->
+<div class="section" data-section="01">
+    <h2 class="section-title"><span class="section-num">01</span>The Document Structure</h2>
+    <div class="annotated-code">
+        <div class="code-side">
+            <div class="code-block"><pre><code><span class="cmt">&lt;!-- This is a complete HTML document --&gt;</span>
+<span class="marker" data-note="n1">&lt;!DOCTYPE html&gt;</span>
+<span class="marker" data-note="n2">&lt;html lang="en"&gt;</span>
+
+  <span class="marker" data-note="n3">&lt;head&gt;</span>
+    <span class="marker" data-note="n4">&lt;meta charset="UTF-8"&gt;</span>
+    <span class="marker" data-note="n5">&lt;meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0"&gt;</span>
+    <span class="marker" data-note="n6">&lt;title&gt;My Page&lt;/title&gt;</span>
+    <span class="marker" data-note="n7">&lt;link rel="stylesheet"
+          href="styles.css"&gt;</span>
+  &lt;/head&gt;
+
+  <span class="marker" data-note="n8">&lt;body&gt;</span>
+    &lt;h1&gt;Hello&lt;/h1&gt;
+    <span class="marker" data-note="n9">&lt;script src="app.js"&gt;&lt;/script&gt;</span>
+  &lt;/body&gt;
+
+&lt;/html&gt;</code></pre></div>
+        </div>
+        <div class="note-side">
+            <div class="note" data-note="n1"><span class="note-badge">1</span><div><strong>&lt;!DOCTYPE html&gt;</strong> — A <em>declaration</em>, not a tag. Tells the browser: "I'm HTML5, render me in Standards Mode." Without it, browsers fall back to "Quirks Mode" (1990s rendering). Always line 1.</div></div>
+            <div class="note" data-note="n2"><span class="note-badge">2</span><div><strong>&lt;html&gt;</strong> — The <em>root element</em>. Every file has exactly <strong>one</strong>. The <code>lang</code> attribute helps search engines and screen readers.</div></div>
+            <div class="note" data-note="n3"><span class="note-badge">3</span><div><strong>&lt;head&gt;</strong> — The "brain." Nothing here is visible on the page. It holds metadata, styles, scripts, and external links. Exactly <strong>one</strong> per document.</div></div>
+            <div class="note" data-note="n4"><span class="note-badge">4</span><div><strong>&lt;meta charset&gt;</strong> — Sets the character encoding. <code>UTF-8</code> supports all languages (CJK, emoji, accents). Without it, non-ASCII text may appear garbled.</div></div>
+            <div class="note" data-note="n5"><span class="note-badge">5</span><div><strong>viewport meta</strong> — Tells mobile browsers "page width = device width, don't zoom out." Without it, phones render a tiny desktop page.</div></div>
+            <div class="note" data-note="n6"><span class="note-badge">6</span><div><strong>&lt;title&gt;</strong> — The text on the browser tab. <em>Required.</em> Also used by search engines as the clickable headline.</div></div>
+            <div class="note" data-note="n7"><span class="note-badge">7</span><div><strong>&lt;link&gt;</strong> — Connects external resources. <code>rel="stylesheet"</code> loads CSS. Also used for favicons. It's a void element (no closing tag). Loads <strong>in parallel</strong> — unlike <code>@import</code> in CSS which loads sequentially.</div></div>
+            <div class="note" data-note="n8"><span class="note-badge">8</span><div><strong>&lt;body&gt;</strong> — The "body." Everything the user <em>sees</em> goes here: text, images, buttons, canvas. Exactly <strong>one</strong> per document.</div></div>
+            <div class="note" data-note="n9"><span class="note-badge">9</span><div><strong>&lt;script&gt;</strong> — Loads JavaScript. Placed at the bottom of &lt;body&gt; so the browser renders HTML first, then runs JS. If placed in &lt;head&gt;, use the <code>defer</code> attribute. <code>async</code> downloads in parallel but executes immediately — order not guaranteed.</div></div>
+        </div>
+    </div>
+    <div class="info-box">
+        <p><strong>The Rule of One:</strong> One <code>&lt;html&gt;</code>, one <code>&lt;head&gt;</code>, one <code>&lt;body&gt;</code>. If you accidentally write two, the browser will merge them silently — but styles and scripts may break.</p>
+    </div>
+</div>
+
+<!-- 02 — Common Body Elements -->
+<div class="section" data-section="02">
+    <h2 class="section-title"><span class="section-num">02</span>Common Body Elements</h2>
+    <div class="two-col">
+        <div class="card"><h3>Text &amp; Headings</h3><div class="code-block"><pre><code>&lt;h1&gt;Main Heading&lt;/h1&gt;
+&lt;h2&gt;Sub-heading&lt;/h2&gt;
+<span class="cmt">&lt;!-- h1 to h6, one h1 per page --&gt;</span>
+
+&lt;p&gt;A paragraph of text.&lt;/p&gt;
+
+&lt;p&gt;Line one&lt;br&gt;Line two&lt;/p&gt;
+<span class="cmt">&lt;!-- &lt;br&gt; forces a line break --&gt;</span>
+
+&lt;strong&gt;Bold&lt;/strong&gt;
+&lt;em&gt;Italic&lt;/em&gt;
+&lt;span&gt;Inline wrapper&lt;/span&gt;</code></pre></div></div>
+
+        <div class="card"><h3>Links &amp; Images</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- Hyperlink --&gt;</span>
+&lt;a href="https://example.com"
+   target="_blank"&gt;Click me&lt;/a&gt;
+
+<span class="cmt">&lt;!-- Image (void element) --&gt;</span>
+&lt;img src="photo.jpg"
+     alt="A cat sleeping"
+     width="300"&gt;
+
+<span class="cmt">&lt;!-- alt is read by screen readers
+     for accessibility --&gt;</span></code></pre></div></div>
+
+        <div class="card"><h3>Lists</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- Unordered (bullet points) --&gt;</span>
+&lt;ul&gt;
+  &lt;li&gt;Apples&lt;/li&gt;
+  &lt;li&gt;Bananas&lt;/li&gt;
+&lt;/ul&gt;
+
+<span class="cmt">&lt;!-- Ordered (numbered) --&gt;</span>
+&lt;ol&gt;
+  &lt;li&gt;First step&lt;/li&gt;
+  &lt;li&gt;Second step&lt;/li&gt;
+&lt;/ol&gt;</code></pre></div></div>
+
+        <div class="card"><h3>Forms &amp; Inputs</h3><div class="code-block"><pre><code>&lt;form action="/submit" method="POST"&gt;
+  &lt;label for="name"&gt;Name:&lt;/label&gt;
+  &lt;input type="text" id="name"
+         placeholder="Enter name"&gt;
+  &lt;input type="email"
+         placeholder="you@mail.com"&gt;
+  &lt;textarea rows="4"&gt;&lt;/textarea&gt;
+  &lt;button type="submit"&gt;Send&lt;/button&gt;
+&lt;/form&gt;</code></pre></div></div>
+
+        <div class="card"><h3>Tables</h3><div class="code-block"><pre><code>&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Name&lt;/th&gt;&lt;th&gt;Age&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;Alice&lt;/td&gt;&lt;td&gt;30&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;</code></pre></div></div>
+
+        <div class="card"><h3>&lt;div&gt; vs Semantic Tags</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- div: generic container --&gt;</span>
+&lt;div class="card"&gt;...&lt;/div&gt;
+
+<span class="cmt">&lt;!-- Semantic: meaningful to SEO
+     &amp; screen readers --&gt;</span>
+&lt;header&gt;Site banner&lt;/header&gt;
+&lt;nav&gt;Navigation links&lt;/nav&gt;
+&lt;main&gt;Primary content&lt;/main&gt;
+&lt;section&gt;Grouped content&lt;/section&gt;
+&lt;article&gt;Self-contained post&lt;/article&gt;
+&lt;footer&gt;Copyright info&lt;/footer&gt;</code></pre></div></div>
+    </div>
+</div>
+
+<!-- 03 — Special Elements -->
+<div class="section" data-section="03">
+    <h2 class="section-title"><span class="section-num">03</span>Special Elements</h2>
+    <div class="two-col">
+        <div class="card"><h3>&lt;canvas&gt; — The Blank Paper</h3><div class="code-block"><pre><code>&lt;canvas id="sky" width="400"
+        height="300"&gt;
+  Fallback text if unsupported
+&lt;/canvas&gt;
+
+<span class="cmt">&lt;!-- Canvas displays nothing by itself.
+     JS draws on it via the 2D/WebGL API.
+
+     Libraries: PixiJS (2D),
+     Three.js (3D), Chart.js --&gt;</span></code></pre></div></div>
+
+        <div class="card"><h3>&lt;ruby&gt; — Text Annotations</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- NOT the Ruby language!
+     Named after a small font size
+     used in East Asian printing. --&gt;</span>
+
+&lt;ruby&gt;
+  漢 &lt;rt&gt;hàn&lt;/rt&gt;
+  語 &lt;rt&gt;yǔ&lt;/rt&gt;
+&lt;/ruby&gt;
+
+<span class="cmt">&lt;!-- Creative use:
+     &lt;ruby&gt;I'm fine
+       &lt;rt&gt;I'm not&lt;/rt&gt;
+     &lt;/ruby&gt; --&gt;</span></code></pre></div></div>
+
+        <div class="card"><h3>Void (Self-closing) Elements</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- These have NO closing tag: --&gt;</span>
+&lt;br&gt;    <span class="cmt">&lt;!-- line break --&gt;</span>
+&lt;hr&gt;    <span class="cmt">&lt;!-- horizontal rule --&gt;</span>
+&lt;img&gt;   <span class="cmt">&lt;!-- image --&gt;</span>
+&lt;input&gt; <span class="cmt">&lt;!-- form input --&gt;</span>
+&lt;meta&gt;  <span class="cmt">&lt;!-- metadata --&gt;</span>
+&lt;link&gt;  <span class="cmt">&lt;!-- external resource --&gt;</span>
+
+<span class="cmt">&lt;!-- NEVER: &lt;div /&gt; — swallows all
+     content after it --&gt;</span></code></pre></div></div>
+
+        <div class="card"><h3>PWA Manifest</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- Turn site into installable app --&gt;</span>
+&lt;link rel="manifest"
+      href="manifest.json"&gt;
+
+<span class="cmt">// manifest.json:</span>
+{
+  "name": "My App",
+  "short_name": "App",
+  "start_url": "/",
+  "display": "standalone",
+  "icons": [{ "src": "icon.png",
+              "sizes": "192x192" }]
+}</code></pre></div></div>
+    </div>
+    <div class="info-box">
+        <p><strong>Attributes:</strong> Tags carry data via attributes: <code>id</code> (unique identifier), <code>class</code> (reusable styling hook), <code>src</code> (resource URL), <code>href</code> (link destination), <code>style</code> (inline CSS). IDs must be unique across the page; classes can repeat.</p>
+    </div>
+</div>

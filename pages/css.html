@@ -1,0 +1,385 @@
+<!-- pages/css.html — CSS Tutorial Page (partial) -->
+<div class="hero">
+    <h1>CSS — The Skin</h1>
+    <p class="hero-sub">CSS (Cascading Style Sheets) transforms raw HTML into something beautiful.
+        It controls <em>how</em> elements look — colors, layout, spacing, animations.</p>
+</div>
+
+<!-- 01 — Three Ways to Apply CSS -->
+<div class="section" data-section="01">
+    <h2 class="section-title"><span class="section-num">01</span>Three Ways to Apply CSS</h2>
+    <div class="two-col triple">
+        <div class="card"><h3>1. External (Best ✅)</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- In &lt;head&gt; --&gt;</span>
+&lt;link rel="stylesheet"
+      href="styles.css"&gt;
+
+<span class="cmt">/* styles.css */</span>
+<span class="kw">body</span> {
+  <span class="fn">background</span>: <span class="str">#0f1117</span>;
+  <span class="fn">color</span>: <span class="str">#e2e8f0</span>;
+}
+
+<span class="cmt">/* Reusable, cacheable, clean
+   separation of concerns */</span></code></pre></div></div>
+
+        <div class="card"><h3>2. Internal (Sometimes)</h3><div class="code-block"><pre><code><span class="cmt">&lt;!-- In &lt;head&gt; --&gt;</span>
+&lt;style&gt;
+  <span class="kw">h1</span> {
+    <span class="fn">color</span>: <span class="str">royalblue</span>;
+    <span class="fn">font-size</span>: <span class="str">2rem</span>;
+  }
+&lt;/style&gt;
+
+<span class="cmt">/* OK for single-page sites.
+   Can't be cached separately. */</span></code></pre></div></div>
+
+        <div class="card"><h3>3. Inline (Avoid ❌)</h3><div class="code-block"><pre><code>&lt;p <span class="kw">style</span>=<span class="str">"color: red;
+   font-size: 1.5rem;"</span>&gt;
+  Text
+&lt;/p&gt;
+
+<span class="cmt">/* Highest specificity, mixes
+   style with content. Only use
+   for JS-driven dynamic styles. */</span></code></pre></div></div>
+    </div>
+</div>
+
+<!-- 02 — Selectors & Specificity -->
+<div class="section" data-section="02">
+    <h2 class="section-title"><span class="section-num">02</span>Selectors &amp; Specificity</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">/* --- Basic selectors --- */</span>
+<span class="kw">p</span>         { }  <span class="cmt">/* type (tag) */</span>
+<span class="kw">.card</span>     { }  <span class="cmt">/* class */</span>
+<span class="kw">#logo</span>     { }  <span class="cmt">/* ID */</span>
+<span class="kw">*</span>         { }  <span class="cmt">/* universal */</span>
+
+<span class="cmt">/* --- Combinators --- */</span>
+<span class="kw">div p</span>     { }  <span class="cmt">/* descendant */</span>
+<span class="kw">div &gt; p</span>   { }  <span class="cmt">/* direct child */</span>
+<span class="kw">h2 + p</span>   { }  <span class="cmt">/* adjacent sibling */</span>
+<span class="kw">h2 ~ p</span>   { }  <span class="cmt">/* general sibling */</span>
+
+<span class="cmt">/* --- Pseudo-classes --- */</span>
+<span class="kw">a:hover</span>   { }
+<span class="kw">li:first-child</span> { }
+<span class="kw">input:focus</span>    { }
+<span class="kw">li:nth-child(odd)</span> { }
+
+<span class="cmt">/* --- Pseudo-elements --- */</span>
+<span class="kw">p::before</span> { <span class="fn">content</span>: <span class="str">"→ "</span>; }
+<span class="kw">p::after</span>  { <span class="fn">content</span>: <span class="str">" ←"</span>; }
+<span class="kw">::selection</span> { <span class="fn">background</span>: <span class="str">#6c8cff</span>; }</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="s1"><span class="note-badge">!</span><div><strong>Specificity hierarchy:</strong> Inline (1000) &gt; ID (100) &gt; Class/pseudo-class (10) &gt; Element (1). Higher specificity wins. Use <code>!important</code> sparingly.</div></div>
+            <div class="note" data-note="s2"><span class="note-badge">2</span><div><strong>Cascade order:</strong> When specificity is equal, the last-declared rule wins.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 03 — The Box Model -->
+<div class="section" data-section="03">
+    <h2 class="section-title"><span class="section-num">03</span>The Box Model</h2>
+    <div class="box-model-demo">
+        <div class="bm-margin">
+            <div class="bm-label bm-margin-label">margin <span class="bm-dim">(space outside)</span></div>
+            <div class="bm-border">
+                <div class="bm-label bm-border-label">border</div>
+                <div class="bm-padding">
+                    <div class="bm-label bm-padding-label">padding <span class="bm-dim">(space inside)</span></div>
+                    <div class="bm-content">content</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="info-box">
+        <p><strong>box-sizing: border-box</strong> — Makes <code>width</code> include padding + border (not just content). Without it, a 200px box with 20px padding becomes 240px. Always set <code>* { box-sizing: border-box; }</code>.</p>
+    </div>
+</div>
+
+<!-- 04 — Colors & Typography -->
+<div class="section" data-section="04">
+    <h2 class="section-title"><span class="section-num">04</span>Colors &amp; Typography</h2>
+    <div class="two-col">
+        <div class="card"><h3>Colors</h3><div class="code-block"><pre><code><span class="cmt">/* Named */</span>
+<span class="fn">color</span>: <span class="str">tomato</span>;
+
+<span class="cmt">/* Hex: #RRGGBB or #RRGGBBAA */</span>
+<span class="fn">color</span>: <span class="str">#6c8cff</span>;
+<span class="fn">color</span>: <span class="str">#6c8cff80</span>; <span class="cmt">/* 50% opacity */</span>
+
+<span class="cmt">/* RGB / RGBA */</span>
+<span class="fn">color</span>: <span class="fn">rgb</span>(<span class="str">108</span>, <span class="str">140</span>, <span class="str">255</span>);
+
+<span class="cmt">/* HSL */</span>
+<span class="fn">color</span>: <span class="fn">hsl</span>(<span class="str">228</span>, <span class="str">100%</span>, <span class="str">71%</span>);
+
+<span class="cmt">/* CSS custom properties */</span>
+<span class="kw">:root</span> { <span class="fn">--accent</span>: <span class="str">#6c8cff</span>; }
+<span class="kw">.btn</span>  { <span class="fn">color</span>: <span class="fn">var</span>(--accent); }</code></pre></div></div>
+
+        <div class="card"><h3>Typography</h3><div class="code-block"><pre><code><span class="fn">font-family</span>: <span class="str">'Inter'</span>, sans-serif;
+<span class="fn">font-size</span>: <span class="str">1rem</span>;     <span class="cmt">/* = 16px */</span>
+<span class="fn">font-weight</span>: <span class="str">700</span>;     <span class="cmt">/* bold */</span>
+<span class="fn">line-height</span>: <span class="str">1.6</span>;
+<span class="fn">letter-spacing</span>: <span class="str">0.02em</span>;
+<span class="fn">text-transform</span>: uppercase;
+<span class="fn">text-align</span>: center;
+
+<span class="cmt">/* Units:
+   px  - absolute (avoid)
+   rem - relative to root font-size
+   em  - relative to parent
+   vw/vh - viewport width/height */</span></code></pre></div></div>
+    </div>
+</div>
+
+<!-- 05 — Display & Layout -->
+<div class="section" data-section="05">
+    <h2 class="section-title"><span class="section-num">05</span>Display &amp; Layout</h2>
+    <div class="two-col">
+        <div class="card"><h3>Display Values</h3><div class="code-block"><pre><code><span class="cmt">/* block: full width, stacks vertically */</span>
+<span class="fn">display</span>: block;
+
+<span class="cmt">/* inline: content width only */</span>
+<span class="fn">display</span>: inline;
+
+<span class="cmt">/* inline-block: inline flow but
+   respects width/height */</span>
+<span class="fn">display</span>: inline-block;
+
+<span class="cmt">/* none: removed from layout
+   vs visibility: hidden → occupies space */</span>
+<span class="fn">display</span>: none;</code></pre></div></div>
+
+        <div class="card"><h3>Position</h3><div class="code-block"><pre><code><span class="fn">position</span>: static;   <span class="cmt">/* default */</span>
+
+<span class="fn">position</span>: relative; <span class="cmt">/* offset from normal */</span>
+<span class="fn">top</span>: <span class="str">10px</span>;
+
+<span class="fn">position</span>: absolute; <span class="cmt">/* removed from flow,
+  relative to positioned ancestor */</span>
+
+<span class="fn">position</span>: fixed;    <span class="cmt">/* relative to viewport */</span>
+
+<span class="fn">position</span>: sticky;   <span class="cmt">/* hybrid: relative
+  until scroll threshold, then fixed */</span>
+<span class="fn">top</span>: <span class="str">0</span>;</code></pre></div></div>
+    </div>
+</div>
+
+<!-- 06 — Flexbox -->
+<div class="section" data-section="06">
+    <h2 class="section-title"><span class="section-num">06</span>Flexbox</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">.container</span> {
+  <span class="fn">display</span>: flex;
+  <span class="fn">flex-direction</span>: row; <span class="cmt">/* row | column */</span>
+  <span class="fn">justify-content</span>: center; <span class="cmt">/* main axis */</span>
+  <span class="fn">align-items</span>: center;  <span class="cmt">/* cross axis */</span>
+  <span class="fn">gap</span>: <span class="str">1rem</span>;
+  <span class="fn">flex-wrap</span>: wrap;
+}
+
+<span class="kw">.item</span> {
+  <span class="fn">flex</span>: <span class="str">1</span>;        <span class="cmt">/* grow to fill */</span>
+  <span class="fn">flex</span>: <span class="str">0 0 200px</span>; <span class="cmt">/* fixed 200px */</span>
+  <span class="fn">align-self</span>: flex-end;
+  <span class="fn">order</span>: <span class="str">2</span>;
+}
+
+<span class="cmt">/* Center anything: */</span>
+<span class="kw">.centered</span> {
+  <span class="fn">display</span>: flex;
+  <span class="fn">justify-content</span>: center;
+  <span class="fn">align-items</span>: center;
+}</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="fx1"><span class="note-badge">1</span><div><strong>Main vs Cross axis:</strong> <code>row</code> → main is horizontal. <code>column</code> → main is vertical. <code>justify-content</code> always works on main axis.</div></div>
+            <div class="note" data-note="fx2"><span class="note-badge">2</span><div><strong>flex shorthand:</strong> <code>flex: 1</code> = grow:1, shrink:1, basis:0%. <code>flex: 0 0 200px</code> = don't grow, don't shrink, always 200px.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 07 — CSS Grid -->
+<div class="section" data-section="07">
+    <h2 class="section-title"><span class="section-num">07</span>CSS Grid</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">.grid</span> {
+  <span class="fn">display</span>: grid;
+  <span class="fn">grid-template-columns</span>:
+    <span class="fn">repeat</span>(<span class="str">3</span>, <span class="str">1fr</span>);
+  <span class="fn">gap</span>: <span class="str">1.5rem</span>;
+}
+
+<span class="cmt">/* Responsive without media queries: */</span>
+<span class="kw">.auto-grid</span> {
+  <span class="fn">display</span>: grid;
+  <span class="fn">grid-template-columns</span>:
+    <span class="fn">repeat</span>(auto-fit,
+      <span class="fn">minmax</span>(<span class="str">280px</span>, <span class="str">1fr</span>));
+  <span class="fn">gap</span>: <span class="str">1rem</span>;
+}
+
+<span class="kw">.header</span> {
+  <span class="fn">grid-column</span>: <span class="str">1 / -1</span>; <span class="cmt">/* full width */</span>
+}
+<span class="kw">.sidebar</span> {
+  <span class="fn">grid-row</span>: <span class="str">2 / 4</span>;
+}</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="g1"><span class="note-badge">1</span><div><strong>fr unit:</strong> "Fraction of available space." <code>1fr 2fr</code> = first gets 1/3, second gets 2/3.</div></div>
+            <div class="note" data-note="g2"><span class="note-badge">2</span><div><strong>auto-fit + minmax:</strong> The holy grail of responsive grids. No media queries needed.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 08 — Responsive Design -->
+<div class="section" data-section="08">
+    <h2 class="section-title"><span class="section-num">08</span>Responsive Design</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">/* Mobile-first: base = phone,
+   then add complexity for bigger screens */</span>
+
+<span class="kw">.container</span> {
+  <span class="fn">padding</span>: <span class="str">1rem</span>;
+  <span class="fn">max-width</span>: <span class="str">1200px</span>;
+  <span class="fn">margin</span>: <span class="str">0</span> auto;
+}
+
+<span class="cmt">/* Tablet: 768px and up */</span>
+<span class="kw">@media</span> (min-width: <span class="str">768px</span>) {
+  <span class="kw">.container</span> { <span class="fn">padding</span>: <span class="str">2rem</span>; }
+  <span class="kw">.grid</span> {
+    <span class="fn">grid-template-columns</span>: <span class="str">1fr 1fr</span>;
+  }
+}
+
+<span class="cmt">/* Desktop: 1024px and up */</span>
+<span class="kw">@media</span> (min-width: <span class="str">1024px</span>) {
+  <span class="kw">.grid</span> {
+    <span class="fn">grid-template-columns</span>:
+      <span class="fn">repeat</span>(<span class="str">3</span>, <span class="str">1fr</span>);
+  }
+}</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="r1"><span class="note-badge">1</span><div><strong>Mobile-first:</strong> Start with simplest layout, use <code>min-width</code> to add complexity. Mobile gets smallest CSS.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 09 — Transitions & Animations -->
+<div class="section" data-section="09">
+    <h2 class="section-title"><span class="section-num">09</span>Transitions &amp; Animations</h2>
+    <div class="two-col">
+        <div class="card"><h3>Transitions</h3><div class="code-block"><pre><code><span class="kw">.btn</span> {
+  <span class="fn">background</span>: <span class="str">#6c8cff</span>;
+  <span class="fn">transition</span>: all <span class="str">0.3s</span> ease;
+}
+<span class="kw">.btn:hover</span> {
+  <span class="fn">background</span>: <span class="str">#8ba3ff</span>;
+  <span class="fn">transform</span>: <span class="fn">translateY</span>(<span class="str">-2px</span>);
+  <span class="fn">box-shadow</span>: <span class="str">0 4px 15px</span>
+    <span class="fn">rgba</span>(<span class="str">108</span>,<span class="str">140</span>,<span class="str">255</span>,<span class="str">0.3</span>);
+}
+
+<span class="cmt">/* Timing: ease, linear, ease-in,
+   cubic-bezier(0.4, 0, 0.2, 1) */</span></code></pre></div></div>
+
+        <div class="card"><h3>Keyframe Animations</h3><div class="code-block"><pre><code><span class="kw">@keyframes</span> slideIn {
+  <span class="kw">from</span> {
+    <span class="fn">opacity</span>: <span class="str">0</span>;
+    <span class="fn">transform</span>: <span class="fn">translateY</span>(<span class="str">20px</span>);
+  }
+  <span class="kw">to</span> {
+    <span class="fn">opacity</span>: <span class="str">1</span>;
+    <span class="fn">transform</span>: <span class="fn">translateY</span>(<span class="str">0</span>);
+  }
+}
+
+<span class="kw">.card</span> {
+  <span class="fn">animation</span>: slideIn <span class="str">0.4s</span>
+    ease-out forwards;
+}
+
+<span class="cmt">/* Multi-step: */</span>
+<span class="kw">@keyframes</span> pulse {
+  <span class="str">0%</span>, <span class="str">100%</span> { <span class="fn">opacity</span>: <span class="str">1</span>; }
+  <span class="str">50%</span>  { <span class="fn">opacity</span>: <span class="str">0.5</span>; }
+}</code></pre></div></div>
+    </div>
+</div>
+
+<!-- 10 — CSS Variables -->
+<div class="section" data-section="10">
+    <h2 class="section-title"><span class="section-num">10</span>CSS Variables (Custom Properties)</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">/* Define in :root for global scope */</span>
+<span class="kw">:root</span> {
+  <span class="fn">--bg</span>:     <span class="str">#0f1117</span>;
+  <span class="fn">--text</span>:   <span class="str">#e2e8f0</span>;
+  <span class="fn">--accent</span>: <span class="str">#6c8cff</span>;
+  <span class="fn">--radius</span>: <span class="str">12px</span>;
+}
+
+<span class="kw">.card</span> {
+  <span class="fn">background</span>: <span class="fn">var</span>(--bg);
+  <span class="fn">color</span>: <span class="fn">var</span>(--text);
+  <span class="fn">border-radius</span>: <span class="fn">var</span>(--radius);
+}
+
+<span class="cmt">/* Dark/Light toggle via JS: */</span>
+<span class="kw">[data-theme="light"]</span> {
+  <span class="fn">--bg</span>:   <span class="str">#ffffff</span>;
+  <span class="fn">--text</span>: <span class="str">#1a1a2e</span>;
+}</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="cv1"><span class="note-badge">1</span><div><strong>Why variables?</strong> Change one value, every usage updates. They cascade — override in a child and everything inside uses the new value.</div></div>
+            <div class="note" data-note="cv2"><span class="note-badge">2</span><div><strong>JS access:</strong> Read: <code>getComputedStyle(el).getPropertyValue('--accent')</code>. Write: <code>el.style.setProperty('--accent', '#ff0')</code>.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 11 — Live CSS Preview -->
+<div class="section" data-section="11">
+    <h2 class="section-title"><span class="section-num">11</span>Live CSS Preview</h2>
+    <div class="css-preview-container" id="css-preview-section">
+        <div class="css-preview-editor">
+            <label for="css-live-input">Type CSS below and see it applied in real time:</label>
+            <textarea id="css-live-input" spellcheck="false" rows="8" placeholder=".preview-box {
+  background: linear-gradient(135deg, #6c8cff, #a78bfa);
+  border-radius: 16px;
+  padding: 2rem;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  transform: rotate(2deg);
+}"></textarea>
+        </div>
+        <div class="css-preview-result">
+            <div class="preview-box" id="css-preview-target">Preview Box — Style Me!</div>
+        </div>
+    </div>
+</div>
+
+<!-- 12 — Cheatsheet -->
+<div class="section" data-section="12">
+    <h2 class="section-title"><span class="section-num">12</span>Cheatsheet</h2>
+    <div class="cheatsheet">
+        <table>
+            <thead><tr><th>Property</th><th>What It Does</th><th>Use For</th></tr></thead>
+            <tbody>
+                <tr><td><code>display: flex</code></td><td>1D layout — horizontal or vertical</td><td>Nav bars, card rows</td></tr>
+                <tr><td><code>display: grid</code></td><td>2D layout — rows AND columns</td><td>Page layouts, galleries</td></tr>
+                <tr><td><code>position: sticky</code></td><td>Fixed after scroll threshold</td><td>Headers, sidebars</td></tr>
+                <tr><td><code>gap: 1rem</code></td><td>Space between flex/grid items</td><td>Everywhere (replaces margins)</td></tr>
+                <tr><td><code>min-width / max-width</code></td><td>Responsive constraints</td><td>Fluid containers</td></tr>
+                <tr><td><code>clamp(1rem, 2.5vw, 2rem)</code></td><td>Fluid sizing min/preferred/max</td><td>Responsive font sizes</td></tr>
+                <tr><td><code>aspect-ratio: 16/9</code></td><td>Lock width:height ratio</td><td>Video embeds, cards</td></tr>
+                <tr><td><code>overflow: auto</code></td><td>Add scrollbar if content overflows</td><td>Scrollable containers</td></tr>
+                <tr><td><code>mix-blend-mode</code></td><td>Photoshop-like blending</td><td>Text over images</td></tr>
+                <tr><td><code>backdrop-filter: blur(10px)</code></td><td>Frosted glass effect</td><td>Overlays, modals</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>

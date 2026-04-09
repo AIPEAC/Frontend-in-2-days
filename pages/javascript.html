@@ -1,0 +1,257 @@
+<!-- pages/javascript.html — JavaScript Tutorial Page (partial) -->
+<div class="hero">
+    <h1>JavaScript — The Brain</h1>
+    <p class="hero-sub">JavaScript is the <em>only</em> programming language browsers run natively.
+        It turns static HTML into dynamic, interactive experiences.</p>
+</div>
+
+<!-- 01 — Variables & Types -->
+<div class="section" data-section="01">
+    <h2 class="section-title"><span class="section-num">01</span>Variables &amp; Types</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">// Three ways to declare variables</span>
+<span class="kw">const</span> PI = <span class="str">3.14159</span>;      <span class="cmt">// can't reassign</span>
+<span class="kw">let</span>   count = <span class="str">0</span>;          <span class="cmt">// can reassign</span>
+<span class="kw">var</span>   old = <span class="str">"avoid this"</span>;  <span class="cmt">// function-scoped (legacy)</span>
+
+<span class="cmt">// JavaScript's 8 types</span>
+<span class="kw">let</span> str    = <span class="str">"hello"</span>;       <span class="cmt">// string</span>
+<span class="kw">let</span> num    = <span class="str">42</span>;            <span class="cmt">// number (int &amp; float)</span>
+<span class="kw">let</span> big    = <span class="str">9007199254740993n</span>; <span class="cmt">// bigint</span>
+<span class="kw">let</span> bool   = <span class="kw">true</span>;          <span class="cmt">// boolean</span>
+<span class="kw">let</span> empty  = <span class="kw">null</span>;          <span class="cmt">// intentional "no value"</span>
+<span class="kw">let</span> notSet;                 <span class="cmt">// undefined</span>
+<span class="kw">let</span> sym    = <span class="fn">Symbol</span>(<span class="str">"id"</span>); <span class="cmt">// unique identifier</span>
+<span class="kw">let</span> obj    = { key: <span class="str">"val"</span> }; <span class="cmt">// object</span></code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="v1"><span class="note-badge">1</span><div><strong>const vs let:</strong> Default to <code>const</code>. Use <code>let</code> only when you need reassignment. <code>const</code> for objects/arrays means the <em>reference</em> is locked — contents can still change.</div></div>
+            <div class="note" data-note="v2"><span class="note-badge">2</span><div><strong>var is legacy:</strong> <code>var</code> is function-scoped (not block-scoped), gets hoisted, and can be redeclared. Modern JS uses <code>const</code>/<code>let</code>.</div></div>
+            <div class="note" data-note="v3"><span class="note-badge">3</span><div><strong>Dynamic typing:</strong> Variables have no fixed type. <code>let x = 5; x = "hello";</code> is valid. <code>typeof x</code> returns the current type.</div></div>
+            <div class="note" data-note="v4"><span class="note-badge">4</span><div><strong>null vs undefined:</strong> Both mean "no value" but <code>null</code> is <em>intentional</em> (you set it), <code>undefined</code> means "never assigned" (JS set it). Always use <code>===</code> to compare.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 02 — Functions -->
+<div class="section" data-section="02">
+    <h2 class="section-title"><span class="section-num">02</span>Functions</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">// Function declaration (hoisted)</span>
+<span class="kw">function</span> <span class="fn">greet</span>(name) {
+  <span class="kw">return</span> <span class="str">`Hello, ${name}!`</span>;
+}
+
+<span class="cmt">// Arrow function (ES6+, not hoisted)</span>
+<span class="kw">const</span> <span class="fn">add</span> = (a, b) =&gt; a + b;
+
+<span class="cmt">// Multi-line arrow</span>
+<span class="kw">const</span> <span class="fn">process</span> = (data) =&gt; {
+  <span class="kw">const</span> cleaned = data.<span class="fn">trim</span>();
+  <span class="kw">return</span> cleaned.<span class="fn">toUpperCase</span>();
+};
+
+<span class="cmt">// Default parameters</span>
+<span class="kw">function</span> <span class="fn">power</span>(base, exp = <span class="str">2</span>) {
+  <span class="kw">return</span> base ** exp;
+}
+
+<span class="cmt">// Rest parameters (...)</span>
+<span class="kw">function</span> <span class="fn">sum</span>(...nums) {
+  <span class="kw">return</span> nums.<span class="fn">reduce</span>((a, b) =&gt; a + b, <span class="str">0</span>);
+}</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="f1"><span class="note-badge">1</span><div><strong>Hoisting:</strong> Function <em>declarations</em> are hoisted — you can call them before they appear. Arrow functions assigned to <code>const</code> are NOT hoisted.</div></div>
+            <div class="note" data-note="f2"><span class="note-badge">2</span><div><strong>Template literals:</strong> Backtick strings (<code>`...`</code>) support <code>${expression}</code> interpolation and multi-line text.</div></div>
+            <div class="note" data-note="f3"><span class="note-badge">3</span><div><strong>Arrow vs function:</strong> Arrow functions do NOT have their own <code>this</code> — they inherit from the enclosing scope. Use arrows for callbacks; use <code>function</code> for methods.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 03 — ES6+ Features -->
+<div class="section" data-section="03">
+    <h2 class="section-title"><span class="section-num">03</span>ES6+ Features</h2>
+    <div class="two-col">
+        <div class="card"><h3>Destructuring</h3><div class="code-block"><pre><code><span class="cmt">// Object destructuring</span>
+<span class="kw">const</span> user = { name: <span class="str">"Alex"</span>, age: <span class="str">25</span> };
+<span class="kw">const</span> { name, age } = user;
+
+<span class="cmt">// Array destructuring</span>
+<span class="kw">const</span> [first, ...rest] = [<span class="str">1</span>, <span class="str">2</span>, <span class="str">3</span>];
+
+<span class="cmt">// Rename + default</span>
+<span class="kw">const</span> { name: n, role = <span class="str">"user"</span> } = user;</code></pre></div></div>
+
+        <div class="card"><h3>Spread Operator</h3><div class="code-block"><pre><code><span class="cmt">// Clone array</span>
+<span class="kw">const</span> copy = [...original];
+
+<span class="cmt">// Merge objects</span>
+<span class="kw">const</span> merged = { ...defaults, ...custom };
+
+<span class="cmt">// Pass array as arguments</span>
+Math.<span class="fn">max</span>(...numbers);</code></pre></div></div>
+
+        <div class="card"><h3>Optional Chaining</h3><div class="code-block"><pre><code><span class="cmt">// Safely access nested properties</span>
+<span class="kw">const</span> city = user?.address?.city;
+<span class="cmt">// Returns undefined if any link is null</span>
+
+<span class="cmt">// Nullish coalescing</span>
+<span class="kw">const</span> port = config.port ?? <span class="str">3000</span>;
+<span class="cmt">// Uses 3000 only if port is null/undefined</span></code></pre></div></div>
+
+        <div class="card"><h3>Modules (import/export)</h3><div class="code-block"><pre><code><span class="cmt">// math.js — named exports</span>
+<span class="kw">export const</span> PI = <span class="str">3.14</span>;
+<span class="kw">export function</span> <span class="fn">add</span>(a, b) {
+  <span class="kw">return</span> a + b;
+}
+
+<span class="cmt">// app.js — import</span>
+<span class="kw">import</span> { PI, add } <span class="kw">from</span> <span class="str">'./math.js'</span>;
+
+<span class="cmt">// Default export</span>
+<span class="kw">export default class</span> <span class="fn">App</span> { }</code></pre></div></div>
+    </div>
+</div>
+
+<!-- 04 — Arrays -->
+<div class="section" data-section="04">
+    <h2 class="section-title"><span class="section-num">04</span>Arrays — The Workhorse</h2>
+    <div class="two-col">
+        <div class="card"><h3>Transform &amp; Filter</h3><div class="code-block"><pre><code><span class="kw">const</span> nums = [<span class="str">1</span>, <span class="str">2</span>, <span class="str">3</span>, <span class="str">4</span>, <span class="str">5</span>];
+
+<span class="cmt">// map: transform each item</span>
+<span class="kw">const</span> doubled = nums.<span class="fn">map</span>(n =&gt; n * <span class="str">2</span>);
+<span class="cmt">// [2, 4, 6, 8, 10]</span>
+
+<span class="cmt">// filter: keep items that pass test</span>
+<span class="kw">const</span> evens = nums.<span class="fn">filter</span>(n =&gt; n % <span class="str">2</span> === <span class="str">0</span>);
+
+<span class="cmt">// find: first match</span>
+<span class="kw">const</span> found = nums.<span class="fn">find</span>(n =&gt; n &gt; <span class="str">3</span>);
+
+<span class="cmt">// Chain them!</span>
+<span class="kw">const</span> result = nums
+  .<span class="fn">filter</span>(n =&gt; n &gt; <span class="str">2</span>)
+  .<span class="fn">map</span>(n =&gt; n * <span class="str">10</span>);</code></pre></div></div>
+
+        <div class="card"><h3>Reduce &amp; Others</h3><div class="code-block"><pre><code><span class="cmt">// reduce: collapse to one value</span>
+<span class="kw">const</span> total = nums.<span class="fn">reduce</span>(
+  (acc, n) =&gt; acc + n, <span class="str">0</span>
+); <span class="cmt">// 15</span>
+
+<span class="cmt">// some / every: boolean checks</span>
+nums.<span class="fn">some</span>(n =&gt; n &gt; <span class="str">4</span>);  <span class="cmt">// true</span>
+nums.<span class="fn">every</span>(n =&gt; n &gt; <span class="str">0</span>); <span class="cmt">// true</span>
+
+<span class="cmt">// forEach: side effects only</span>
+nums.<span class="fn">forEach</span>(n =&gt; console.<span class="fn">log</span>(n));
+
+<span class="cmt">// includes: membership test</span>
+[<span class="str">1</span>,<span class="str">2</span>,<span class="str">3</span>].<span class="fn">includes</span>(<span class="str">2</span>); <span class="cmt">// true</span></code></pre></div></div>
+    </div>
+</div>
+
+<!-- 05 — Async -->
+<div class="section" data-section="05">
+    <h2 class="section-title"><span class="section-num">05</span>Async — Promises &amp; await</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">// A Promise = a "future value" container</span>
+
+<span class="fn">fetch</span>(<span class="str">'https://api.example.com/data'</span>)
+  .<span class="fn">then</span>(response =&gt; response.<span class="fn">json</span>())
+  .<span class="fn">then</span>(data =&gt; console.<span class="fn">log</span>(data))
+  .<span class="fn">catch</span>(err =&gt; console.<span class="fn">error</span>(err));
+
+<span class="cmt">// Same thing with async/await (cleaner)</span>
+<span class="kw">async function</span> <span class="fn">loadData</span>() {
+  <span class="kw">try</span> {
+    <span class="kw">const</span> res = <span class="kw">await</span> <span class="fn">fetch</span>(<span class="str">'/api/data'</span>);
+    <span class="kw">const</span> data = <span class="kw">await</span> res.<span class="fn">json</span>();
+    console.<span class="fn">log</span>(data);
+  } <span class="kw">catch</span> (err) {
+    console.<span class="fn">error</span>(<span class="str">'Failed:'</span>, err);
+  }
+}
+
+<span class="cmt">// Run multiple in parallel</span>
+<span class="kw">const</span> [users, posts] = <span class="kw">await</span> Promise.<span class="fn">all</span>([
+  <span class="fn">fetch</span>(<span class="str">'/users'</span>).<span class="fn">then</span>(r =&gt; r.<span class="fn">json</span>()),
+  <span class="fn">fetch</span>(<span class="str">'/posts'</span>).<span class="fn">then</span>(r =&gt; r.<span class="fn">json</span>()),
+]);</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="a1"><span class="note-badge">1</span><div><strong>Promise states:</strong> <em>pending</em> → <em>fulfilled</em> or <em>rejected</em>. Once settled, a Promise never changes again.</div></div>
+            <div class="note" data-note="a2"><span class="note-badge">2</span><div><strong>async/await:</strong> Syntactic sugar over Promises. <code>await</code> pauses the function (not the thread!) until the Promise resolves. Always use <code>try/catch</code>.</div></div>
+            <div class="note" data-note="a3"><span class="note-badge">3</span><div><strong>Promise.all:</strong> Runs multiple Promises in parallel. Returns when ALL resolve. Use <code>Promise.allSettled</code> for all results regardless of failures.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 06 — Classes & Objects -->
+<div class="section" data-section="06">
+    <h2 class="section-title"><span class="section-num">06</span>Classes &amp; Objects</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">class</span> <span class="fn">Animal</span> {
+  #sound; <span class="cmt">// Private field (ES2022)</span>
+
+  <span class="fn">constructor</span>(name, sound) {
+    <span class="kw">this</span>.name = name;
+    <span class="kw">this</span>.#sound = sound;
+  }
+
+  <span class="fn">speak</span>() {
+    <span class="kw">return</span> <span class="str">`${this.name} says ${this.#sound}`</span>;
+  }
+
+  <span class="kw">static</span> <span class="fn">create</span>(name, sound) {
+    <span class="kw">return new</span> <span class="fn">Animal</span>(name, sound);
+  }
+}
+
+<span class="kw">class</span> <span class="fn">Dog</span> <span class="kw">extends</span> <span class="fn">Animal</span> {
+  <span class="fn">constructor</span>(name) {
+    <span class="kw">super</span>(name, <span class="str">"Woof"</span>);
+  }
+  <span class="fn">fetch</span>(item) {
+    <span class="kw">return</span> <span class="str">`${this.name} fetches ${item}`</span>;
+  }
+}
+
+<span class="kw">const</span> rex = <span class="kw">new</span> <span class="fn">Dog</span>(<span class="str">"Rex"</span>);
+rex.<span class="fn">speak</span>(); <span class="cmt">// "Rex says Woof"</span></code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="c1"><span class="note-badge">1</span><div><strong>Prototype-based:</strong> Classes are syntactic sugar over JavaScript's prototype system. <code>typeof Dog</code> is <code>"function"</code>.</div></div>
+            <div class="note" data-note="c2"><span class="note-badge">2</span><div><strong>Private fields (#):</strong> ES2022 added real private fields with <code>#</code>. They're truly private — outside access throws a SyntaxError.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 07 — Error Handling -->
+<div class="section" data-section="07">
+    <h2 class="section-title"><span class="section-num">07</span>Error Handling</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">try</span> {
+  <span class="kw">const</span> data = JSON.<span class="fn">parse</span>(rawInput);
+  <span class="fn">processData</span>(data);
+} <span class="kw">catch</span> (error) {
+  console.<span class="fn">error</span>(<span class="str">'Parse failed:'</span>, error.message);
+} <span class="kw">finally</span> {
+  <span class="fn">cleanup</span>(); <span class="cmt">// Runs no matter what</span>
+}
+
+<span class="cmt">// Custom error</span>
+<span class="kw">class</span> <span class="fn">ValidationError</span> <span class="kw">extends</span> Error {
+  <span class="fn">constructor</span>(field, message) {
+    <span class="kw">super</span>(message);
+    <span class="kw">this</span>.field = field;
+    <span class="kw">this</span>.name = <span class="str">'ValidationError'</span>;
+  }
+}
+
+<span class="kw">throw new</span> <span class="fn">ValidationError</span>(
+  <span class="str">'email'</span>, <span class="str">'Invalid email format'</span>
+);</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="e1"><span class="note-badge">1</span><div><strong>Catch scope:</strong> The <code>error</code> parameter is only visible inside the catch block.</div></div>
+            <div class="note" data-note="e2"><span class="note-badge">2</span><div><strong>finally:</strong> Always runs — even if try succeeds or catch fires. Use it for cleanup. Even <code>return</code> in try won't skip finally.</div></div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,213 @@
+<!-- pages/jshtml.html — JS × HTML Interaction Tutorial Page (partial) -->
+<div class="hero">
+    <h1>JS × HTML — Making It Alive</h1>
+    <p class="hero-sub">JavaScript manipulates the <strong>DOM</strong> (Document Object Model) — the browser's
+        live tree of every element on the page. Change the DOM, and the page updates instantly.</p>
+</div>
+
+<!-- 01 — Finding Elements -->
+<div class="section" data-section="01">
+    <h2 class="section-title"><span class="section-num">01</span>Finding Elements</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">// By ID — returns ONE element (or null)</span>
+<span class="kw">const</span> header = document.<span class="fn">getElementById</span>(<span class="str">'header'</span>);
+
+<span class="cmt">// By CSS selector — first match</span>
+<span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">'.btn-primary'</span>);
+
+<span class="cmt">// All matches — returns a NodeList</span>
+<span class="kw">const</span> items = document.<span class="fn">querySelectorAll</span>(<span class="str">'li.item'</span>);
+
+<span class="cmt">// NodeList is array-like but NOT an Array</span>
+items.<span class="fn">forEach</span>(el =&gt; console.<span class="fn">log</span>(el));
+
+<span class="cmt">// To use .map/.filter, convert first:</span>
+<span class="kw">const</span> arr = [...items];
+<span class="cmt">// or: Array.from(items)</span></code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="d1"><span class="note-badge">1</span><div><strong>querySelector:</strong> Uses CSS selector syntax. <code>#id</code>, <code>.class</code>, <code>tag</code>, <code>[attr]</code>, <code>div &gt; p</code> — anything you'd write in CSS.</div></div>
+            <div class="note" data-note="d2"><span class="note-badge">2</span><div><strong>NodeList vs Array:</strong> <code>querySelectorAll</code> returns a NodeList with <code>forEach</code> but no <code>map</code>/<code>filter</code>. Spread converts it.</div></div>
+            <div class="note" data-note="d3"><span class="note-badge">3</span><div><strong>Live vs Static:</strong> <code>getElementsByClassName</code> returns a <em>live</em> collection. <code>querySelectorAll</code> returns a <em>static</em> snapshot. Prefer <code>querySelector*</code>.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 02 — Modifying Elements -->
+<div class="section" data-section="02">
+    <h2 class="section-title"><span class="section-num">02</span>Modifying Elements</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">const</span> el = document.<span class="fn">querySelector</span>(<span class="str">'#demo'</span>);
+
+<span class="cmt">// --- Text &amp; HTML ---</span>
+el.textContent = <span class="str">'Safe plain text'</span>;
+el.innerHTML = <span class="str">'&lt;strong&gt;Bold&lt;/strong&gt;'</span>;
+<span class="cmt">// ⚠️ innerHTML with user input → XSS risk!</span>
+
+<span class="cmt">// --- Attributes ---</span>
+el.<span class="fn">setAttribute</span>(<span class="str">'data-id'</span>, <span class="str">'42'</span>);
+el.<span class="fn">getAttribute</span>(<span class="str">'data-id'</span>);  <span class="cmt">// "42"</span>
+el.<span class="fn">removeAttribute</span>(<span class="str">'hidden'</span>);
+
+<span class="cmt">// --- Style (inline) ---</span>
+el.style.color = <span class="str">'#6c8cff'</span>;
+el.style.fontSize = <span class="str">'1.2rem'</span>;
+<span class="cmt">// CSS: font-size → JS: fontSize (camelCase)</span>
+
+<span class="cmt">// --- Classes (best practice) ---</span>
+el.classList.<span class="fn">add</span>(<span class="str">'active'</span>);
+el.classList.<span class="fn">remove</span>(<span class="str">'hidden'</span>);
+el.classList.<span class="fn">toggle</span>(<span class="str">'dark-mode'</span>);
+el.classList.<span class="fn">contains</span>(<span class="str">'active'</span>); <span class="cmt">// true</span></code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="m1"><span class="note-badge">!</span><div><strong>textContent vs innerHTML:</strong> <code>textContent</code> is safe — it sets plain text. <code>innerHTML</code> parses HTML, so user input like <code>&lt;script&gt;alert('x')&lt;/script&gt;</code> will execute. Always sanitize.</div></div>
+            <div class="note" data-note="m2"><span class="note-badge">2</span><div><strong>classList:</strong> The modern way to manage CSS classes. <code>toggle</code> adds if missing, removes if present. Much cleaner than string concatenation.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 03 — Events -->
+<div class="section" data-section="03">
+    <h2 class="section-title"><span class="section-num">03</span>Events — Reacting to Users</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">'#myBtn'</span>);
+
+<span class="cmt">// addEventListener (recommended)</span>
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (event) =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Clicked!'</span>, event.target);
+});
+
+<span class="cmt">// Common events:
+//   click, dblclick, mouseenter, mouseleave
+//   keydown, keyup, input, change
+//   submit, focus, blur, scroll, resize</span>
+
+<span class="cmt">// Event delegation: listen on parent</span>
+document.<span class="fn">querySelector</span>(<span class="str">'ul'</span>)
+  .<span class="fn">addEventListener</span>(<span class="str">'click'</span>, (e) =&gt; {
+    <span class="kw">if</span> (e.target.tagName === <span class="str">'LI'</span>) {
+      console.<span class="fn">log</span>(<span class="str">'Item:'</span>, e.target.textContent);
+    }
+  });
+
+<span class="cmt">// Remove listener</span>
+<span class="kw">const</span> handler = () =&gt; console.<span class="fn">log</span>(<span class="str">'hi'</span>);
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, handler);
+btn.<span class="fn">removeEventListener</span>(<span class="str">'click'</span>, handler);</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="ev1"><span class="note-badge">1</span><div><strong>event.target:</strong> The actual element clicked (could be a child). <code>currentTarget</code> is the element the listener is attached to.</div></div>
+            <div class="note" data-note="ev2"><span class="note-badge">2</span><div><strong>Event delegation:</strong> Instead of 100 listeners, add ONE on the parent &lt;ul&gt;. Events "bubble" up from child to parent. Check <code>e.target</code> to identify which child.</div></div>
+            <div class="note" data-note="ev3"><span class="note-badge">3</span><div><strong>Why not onclick=?</strong> Inline handlers mix JS into HTML, only allow one handler, and execute in global scope. <code>addEventListener</code> is better.</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 04 — Creating & Removing Elements -->
+<div class="section" data-section="04">
+    <h2 class="section-title"><span class="section-num">04</span>Creating &amp; Removing Elements</h2>
+    <div class="annotated-code">
+        <div class="code-side"><div class="code-block"><pre><code><span class="cmt">// Create new element</span>
+<span class="kw">const</span> card = document.<span class="fn">createElement</span>(<span class="str">'div'</span>);
+card.className = <span class="str">'card'</span>;
+card.textContent = <span class="str">'New card!'</span>;
+
+<span class="cmt">// Insert into the page</span>
+document.body.<span class="fn">appendChild</span>(card);
+
+<span class="cmt">// Insert at specific position</span>
+parent.<span class="fn">insertBefore</span>(card, referenceNode);
+
+<span class="cmt">// Modern: insertAdjacentHTML</span>
+container.<span class="fn">insertAdjacentHTML</span>(
+  <span class="str">'beforeend'</span>,
+  <span class="str">'&lt;p class="note"&gt;Added!&lt;/p&gt;'</span>
+);
+
+<span class="cmt">// Remove</span>
+card.<span class="fn">remove</span>();
+
+<span class="cmt">// Replace</span>
+parent.<span class="fn">replaceChild</span>(newEl, oldEl);</code></pre></div></div>
+        <div class="note-side">
+            <div class="note" data-note="cr1"><span class="note-badge">1</span><div><strong>createElement + appendChild:</strong> The safe way to build DOM. No HTML string parsing, no XSS vectors.</div></div>
+            <div class="note" data-note="cr2"><span class="note-badge">2</span><div><strong>insertAdjacentHTML positions:</strong> <code>'beforebegin'</code> (before el), <code>'afterbegin'</code> (first child), <code>'beforeend'</code> (last child), <code>'afterend'</code> (after el).</div></div>
+        </div>
+    </div>
+</div>
+
+<!-- 05 — Timers & Web Storage -->
+<div class="section" data-section="05">
+    <h2 class="section-title"><span class="section-num">05</span>Timers &amp; Web Storage</h2>
+    <div class="two-col">
+        <div class="card"><h3>Timers</h3><div class="code-block"><pre><code><span class="cmt">// Run once after delay</span>
+<span class="kw">const</span> id = <span class="fn">setTimeout</span>(() =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Delayed!'</span>);
+}, <span class="str">2000</span>); <span class="cmt">// 2 seconds</span>
+
+<span class="fn">clearTimeout</span>(id); <span class="cmt">// cancel</span>
+
+<span class="cmt">// Run repeatedly</span>
+<span class="kw">const</span> timer = <span class="fn">setInterval</span>(() =&gt; {
+  console.<span class="fn">log</span>(<span class="str">'Tick'</span>);
+}, <span class="str">1000</span>);
+
+<span class="fn">clearInterval</span>(timer); <span class="cmt">// stop</span>
+
+<span class="cmt">// requestAnimationFrame: 60fps loop</span>
+<span class="kw">function</span> <span class="fn">animate</span>() {
+  <span class="cmt">// update positions...</span>
+  <span class="fn">requestAnimationFrame</span>(animate);
+}
+<span class="fn">animate</span>();</code></pre></div></div>
+
+        <div class="card"><h3>Web Storage</h3><div class="code-block"><pre><code><span class="cmt">// localStorage: persists forever</span>
+localStorage.<span class="fn">setItem</span>(<span class="str">'theme'</span>, <span class="str">'dark'</span>);
+localStorage.<span class="fn">getItem</span>(<span class="str">'theme'</span>); <span class="cmt">// "dark"</span>
+localStorage.<span class="fn">removeItem</span>(<span class="str">'theme'</span>);
+
+<span class="cmt">// Store objects: serialize first</span>
+<span class="kw">const</span> user = { name: <span class="str">"A"</span>, score: <span class="str">10</span> };
+localStorage.<span class="fn">setItem</span>(
+  <span class="str">'user'</span>, JSON.<span class="fn">stringify</span>(user)
+);
+<span class="kw">const</span> loaded = JSON.<span class="fn">parse</span>(
+  localStorage.<span class="fn">getItem</span>(<span class="str">'user'</span>)
+);
+
+<span class="cmt">// sessionStorage: same API,
+// cleared when tab closes</span></code></pre></div></div>
+    </div>
+</div>
+
+<!-- 06 — Live Demo -->
+<div class="section" data-section="06">
+    <h2 class="section-title"><span class="section-num">06</span>Live Demo — Try It!</h2>
+    <p>Click the button to see JavaScript manipulate the DOM in real time.</p>
+    <div class="demo-container">
+        <div class="demo-code">
+            <h3>The Code</h3>
+            <pre><code><span class="kw">const</span> btn = document.<span class="fn">querySelector</span>(<span class="str">'#demo-btn'</span>);
+<span class="kw">const</span> title = document.<span class="fn">querySelector</span>(<span class="str">'#demo-title'</span>);
+<span class="kw">const</span> list = document.<span class="fn">querySelector</span>(<span class="str">'#demo-list'</span>);
+<span class="kw">let</span> count = <span class="str">0</span>;
+
+btn.<span class="fn">addEventListener</span>(<span class="str">'click'</span>, () =&gt; {
+  count++;
+  title.innerText = <span class="str">`Clicked ${count} time(s)`</span>;
+  title.style.color =
+    count % <span class="str">2</span> ? <span class="str">'#e74c3c'</span> : <span class="str">'#2ecc71'</span>;
+
+  <span class="kw">const</span> li = document.<span class="fn">createElement</span>(<span class="str">'li'</span>);
+  li.innerText = <span class="str">`Item #${count}`</span>;
+  list.<span class="fn">appendChild</span>(li);
+});</code></pre>
+        </div>
+        <div class="demo-result">
+            <h3>Live Result</h3>
+            <div class="demo-area">
+                <h2 id="demo-title">Click count: 0</h2>
+                <button class="demo-button" id="demo-btn">Click me!</button>
+                <ul id="demo-list"></ul>
+            </div>
+        </div>
+    </div>
+</div>
