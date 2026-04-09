@@ -30,8 +30,16 @@ const QUIZ_DATA = {
     ],
 };
 
+// ---- Landing page data ----
+const COURSE_OUTLINE = [
+    { icon: '🧱', label: 'HTML', desc: 'The skeleton — document structure, elements, forms, and semantics.' },
+    { icon: '⚙️', label: 'JavaScript', desc: 'The brain — variables, functions, ES6+, async, classes, and error handling.' },
+    { icon: '🔗', label: 'JS × HTML', desc: 'Making it alive — DOM manipulation, events, timers, and storage.' },
+    { icon: '🎨', label: 'CSS', desc: 'The skin — selectors, flexbox, grid, animations, and responsive design.' },
+];
+
 // ---- State ----
-let currentPage = 0;
+let currentPage = -1;   // -1 = landing page
 const pageCache = new Map();
 
 // ---- DOM Setup ----
@@ -54,7 +62,7 @@ function buildShell() {
 
     return `
     <div class="topbar">
-        <span class="topbar-brand">⚡ Frontend in 2 Days</span>
+        <a class="topbar-brand" id="home-link" href="#">⚡ Frontend in 2 Days</a>
         <div class="topbar-tabs">${tabsHtml}</div>
         <div class="topbar-actions">
             <button id="toc-toggle" class="topbar-icon-btn" title="Table of Contents">☰</button>
@@ -68,6 +76,71 @@ function buildShell() {
     </aside>
     <main id="page-container" class="page active"></main>
     <footer class="footer"><p>Built with ♡ and zero frameworks.</p></footer>`;
+}
+
+// ---- Landing page (generated entirely in JS) ----
+function buildLanding() {
+    const cards = COURSE_OUTLINE.map((c, i) => `
+        <button class="landing-card" data-page="${i}">
+            <span class="landing-card-icon">${c.icon}</span>
+            <h3 class="landing-card-title">${c.label}</h3>
+            <p class="landing-card-desc">${c.desc}</p>
+        </button>`).join('');
+
+    const features = [
+        ['📋', 'Copy-ready code', 'One-click copy on every code block.'],
+        ['🌗', 'Dark & Light themes', 'Toggle between dark and light mode.'],
+        ['❓', 'Mini quizzes', 'Test yourself at the end of each page.'],
+        ['🎯', 'Interactive demos', 'Live CSS preview and JS playground.'],
+    ];
+    const featureHtml = features.map(([icon, title, desc]) => `
+        <div class="landing-feature">
+            <span class="landing-feature-icon">${icon}</span>
+            <strong>${title}</strong>
+            <span class="landing-feature-desc">${desc}</span>
+        </div>`).join('');
+
+    return `
+    <div class="landing">
+        <div class="landing-hero">
+            <h1 class="landing-title">Learn Frontend<br><span class="landing-accent">in 2 Days</span></h1>
+            <p class="landing-subtitle">A hands-on crash course in HTML, JavaScript, and CSS —
+                built for developers who already know a typed language.</p>
+            <button class="landing-cta" id="landing-start">Start Learning →</button>
+        </div>
+        <h2 class="landing-section-title">Course Outline</h2>
+        <div class="landing-grid">${cards}</div>
+        <h2 class="landing-section-title">Features</h2>
+        <div class="landing-features">${featureHtml}</div>
+        <p class="landing-footer-note">Zero frameworks. Zero dependencies. Pure HTML + CSS + JS.</p>
+    </div>`;
+}
+
+function showLanding() {
+    currentPage = -1;
+    pageContainer.innerHTML = buildLanding();
+    pageContainer.className = 'page active';
+
+    // Deactivate all tabs
+    document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+
+    // Hide progress bar on landing
+    progressBar.querySelector('.progress-fill').style.width = '0%';
+
+    // Clear TOC
+    tocList.innerHTML = '';
+
+    // Wire up landing card & CTA clicks
+    pageContainer.querySelectorAll('.landing-card').forEach(card => {
+        card.addEventListener('click', () => showPage(parseInt(card.dataset.page, 10)));
+    });
+    const cta = document.getElementById('landing-start');
+    if (cta) cta.addEventListener('click', () => showPage(0));
+
+    // Scroll animations on landing cards
+    initScrollAnimations();
+
+    window.scrollTo({ top: 0 });
 }
 
 // ---- Page fetching & rendering ----
@@ -313,8 +386,13 @@ function initTocToggle() {
 function initKeyboardNav() {
     document.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'TEXTAREA' || e.target.tagName === 'INPUT') return;
-        if (e.key === 'ArrowRight' && currentPage < PAGE_FILES.length - 1) showPage(currentPage + 1);
-        else if (e.key === 'ArrowLeft' && currentPage > 0) showPage(currentPage - 1);
+        if (e.key === 'ArrowRight') {
+            if (currentPage === -1) showPage(0);
+            else if (currentPage < PAGE_FILES.length - 1) showPage(currentPage + 1);
+        } else if (e.key === 'ArrowLeft') {
+            if (currentPage === 0) showLanding();
+            else if (currentPage > 0) showPage(currentPage - 1);
+        }
     });
 }
 
@@ -332,8 +410,13 @@ function initSwipeNav() {
     pageContainer.addEventListener('touchend', e => {
         const dx = e.changedTouches[0].clientX - startX;
         if (Math.abs(dx) < 60) return;
-        if (dx < 0 && currentPage < PAGE_FILES.length - 1) showPage(currentPage + 1);
-        else if (dx > 0 && currentPage > 0) showPage(currentPage - 1);
+        if (dx < 0) {
+            if (currentPage === -1) showPage(0);
+            else if (currentPage < PAGE_FILES.length - 1) showPage(currentPage + 1);
+        } else if (dx > 0) {
+            if (currentPage === 0) showLanding();
+            else if (currentPage > 0) showPage(currentPage - 1);
+        }
     }, { passive: true });
 }
 
@@ -343,4 +426,11 @@ initThemeToggle();
 initTocToggle();
 initKeyboardNav();
 initSwipeNav();
-showPage(0);
+
+// Home link (brand) → landing page
+document.getElementById('home-link').addEventListener('click', (e) => {
+    e.preventDefault();
+    showLanding();
+});
+
+showLanding();

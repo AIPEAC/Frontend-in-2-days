@@ -1,1 +1,4 @@
-pages/** linguist-vendored
+
+pages/css.html linguist-vendored
+pages/javascript.html linguist-vendored
+pages/jshtml.html linguist-vendored
